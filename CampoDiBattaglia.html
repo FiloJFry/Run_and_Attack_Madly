@@ -1,0 +1,197 @@
+<!doctype HTML>
+<html lang = "it">
+    <head>
+        <meta charset = "UTF-8"/>
+        <meta name = "videogame" content = "width=device-width, initial-scale=1.0"/>
+        <title>Run and Attack Madly</title>
+        <link rel = "stylesheet" type = "text/css" href = "AspettoDiBattaglia.css"/>
+        <link rel = "stylesheet" type="text/css" href = "MenùOpzioni.css" />
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+    </head>
+    <body onload = "VaiVaiVai()"><!--onload = "VaiVaiVai()"-->
+        <div class = "Centratore">
+            <div id = "PienBarra"></div>
+            <div id = "Barra"></div>
+        </div>
+        <div class = "Centratore">
+            <img id = "Nemico" src = "./TonyCiccione.jpg" alt = "Nemico"/>
+            <h5 id = "Attacco" translate = "no" style = "color: transparent">●</h5>
+        </div>
+        <h5 id = "Mirino" translate = "no" style = "color: white">I<br/>---X---<br>I</h5>
+        <h5 id = "S1" translate = "no">⮝</h5>
+        <h5 id = "S2" translate = "no">⮟</h5>
+        <h5 id = "Rumori"></h5>
+        <h5 id = "Frasi"></h5>
+        <div id = "Info">1000|9000</div>
+        <div id = "PienBarraMischia"></div><div id = "BarraMischia"></div>
+        <div id = "HP">HP: 4</div>
+        <img id= "Arma" src = "./DoomGuy.jpg" alt = "Arma"/>
+        <div id = "Info2"><h4 id = "posG">Posizione Giocatore: 0</h4><h4 id = "posA">Posizione Nemico: 100</h4><h4 id = "distanza">Distanza: 100</h4><h4 id = "distanzaAG">Distanza Attacco-Giocatore: 100</h4></div>
+        <dialog id = "Pausa">
+            <div id = "SchermataPausa">
+                In Pausa
+                <button type = "button" id = "Riprendi" onclick = "event.stopPropagation(); PausaRiprendi(DatiDiPosizione,NemicoScelto);">Riprendi</button>
+                <button type = "button" id = "Riprova" onclick = "if(!RimaniQui){RimaniQui = true;} PannelloConferma.showModal()">Riprova</button>
+                <button type="button" id = "BottoneOpzioni" onclick="PannelloOpzioni.showModal();">Opzioni</button>
+                <button type = "button" id = "Abbandona" onclick = "if(RimaniQui){RimaniQui = false;} PannelloConferma.showModal()">Abbandona</button>
+            </div>
+        </dialog>
+        <dialog id = "Conferma">
+            <div id = "SchermataConferma">
+                Davvero?
+                <button type = "button" id = "Sì" onclick = "if(RimaniQui){window.location.reload();} else{window.location.href = 'SchermataAvvio.html'}">Sì</button>
+                <button type = "button" id = "No" onclick = "PannelloConferma.close()">No</button>
+            </div>
+        </dialog>
+        <dialog id="Opzioni">
+        <div id="SchermataOpzioni">
+            <b>Comandi</b>
+            <div class = "Riga">Se il nuovo tasto che vuoi assegnare ad un'azione è un carattere normale (per esempio a,0,ecc.),digitalo sulla casella di testo. Altrimenti,seleziona il tasto desiderato dal menù a tendina</div>
+            <div class = "Riga"><b>Attenzione:</b> se la casella di testo associata ad un comando NON è vuota,il suo contenuto diverrà il comando 
+                (per esempio,se c'è scritto "b" sulla casella di testo del comando di ricarica quando si clicca il bottone "Salva",b diventerà il comando per ricaricare). 
+                Altrimenti,il nuovo (eventuale) comando sarà la chiave (eventualmente) selezionata dal menù a tendina</div>
+            <div class="Riga"><b>Spara:</b><input type="text" maxlength="1" size = "1" name="ComandoFuoco" />
+                <select name="ComandoFuoco">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Control">Ctrl</option>
+                    <option value="Alt">Alt</option>
+                    <option value="Delete">Cancella</option>
+                </select>
+            </div>
+            <div class="Riga"><b>Ricarica:</b><input type="text" maxlength="1" size = "1" name="ComandoRicarica" />
+                <select name="ComandoRicarica">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Control">Ctrl</option>
+                    <option value="Alt">Alt</option>
+                    <option value="Delete">Cancella</option>
+                </select>
+            </div>
+            <div class="Riga"><b>Muovi in avanti:</b><input type="text" maxlength="1" size = "1" name="ComandoMuoviSu" />
+                <select name="ComandoMuoviSu">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Control">Ctrl</option>
+                    <option value="Alt">Alt</option>
+                    <option value="Delete">Cancella</option>
+                </select>
+            </div>
+            <div class="Riga"><b>Muovi all'indietro:</b><input type="text" maxlength="1" size = "1" name="ComandoMuoviGiù" />
+                <select name="ComandoMuoviGiù">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Control">Ctrl</option>
+                    <option value="Alt">Alt</option>
+                    <option value="Delete">Cancella</option>
+                </select>
+            </div>
+            <div class="Riga"><b>Schiva:</b><input type="text" maxlength="1" size = "1" name="ComandoSchiva" />
+                <select name="ComandoSchiva">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Control">Ctrl</option>
+                    <option value="Alt">Alt</option>
+                    <option value="Delete">Cancella</option>
+                </select>
+                <div class="Riga"><b>Equipaggia arma da mischia:</b><input type="text" maxlength="1" size = "1" name="Comando0" />
+                    <select name="Comando0">
+                        <option value = ""></option>
+                        <option value="Enter">Invio</option>
+                        <option value=" ">Spazio</option>
+                        <option value="ArrowUp">Freccia su</option>
+                        <option value="ArrowDown">Freccia giù</option>
+                        <option value="ArrowLeft">Freccia sinistra</option>
+                        <option value="ArrowRight">Freccia destra</option>
+                        <option value="Shift">Shift</option>
+                        <option value="Delete">Cancella</option>
+                    </select>
+                </div>
+                <div class="Riga"><b>Equipaggia fucile shotgun:</b><input type="text" maxlength="1" size = "1" name="Comando1" />
+                    <select name="Comando1">
+                        <option value = ""></option>
+                        <option value="Enter">Invio</option>
+                        <option value=" ">Spazio</option>
+                        <option value="ArrowUp">Freccia su</option>
+                        <option value="ArrowDown">Freccia giù</option>
+                        <option value="ArrowLeft">Freccia sinistra</option>
+                        <option value="ArrowRight">Freccia destra</option>
+                        <option value="Shift">Shift</option>
+                        <option value="Delete">Cancella</option>
+                    </select>
+                </div>
+                <div class="Riga"><b>Equipaggia fucile d'assalto:</b><input type="text" maxlength="1" size = "1" name="Comando2" />
+                    <select name="Comando2">
+                        <option value = ""></option>
+                        <option value="Enter">Invio</option>
+                        <option value=" ">Spazio</option>
+                        <option value="ArrowUp">Freccia su</option>
+                        <option value="ArrowDown">Freccia giù</option>
+                        <option value="ArrowLeft">Freccia sinistra</option>
+                        <option value="ArrowRight">Freccia destra</option>
+                        <option value="Shift">Shift</option>
+                        <option value="Delete">Cancella</option>
+                    </select>
+                </div>
+                <div class="Riga"><b>Equipaggia fucile da cecchino:</b><input type="text" maxlength="1" size = "1" name="Comando3" />
+                    <select name="Comando3">
+                        <option value = ""></option>
+                        <option value="Enter">Invio</option>
+                        <option value=" ">Spazio</option>
+                        <option value="ArrowUp">Freccia su</option>
+                        <option value="ArrowDown">Freccia giù</option>
+                        <option value="ArrowLeft">Freccia sinistra</option>
+                        <option value="ArrowRight">Freccia destra</option>
+                        <option value="Shift">Shift</option>
+                        <option value="Delete">Cancella</option>
+                    </select>
+                </div>
+                <b>Mostra dati di posizione</b>
+                <div class = "Riga">Aggiorna e mostra in tempo reale la tua posizione,quella del nemico e la distanza che separa te da lui e dal suo attacco
+                <button type = "button" id = "MostraLePosizioni"  onclick = "if(MostraPosizioni){MostraPosizioni = false;window.localStorage.removeItem('MostraPosizioni');BottonePosizioni.style.backgroundColor = 'red';BottonePosizioni.textContent = 'x';}
+                else{MostraPosizioni = true;window.localStorage.setItem('MostraPosizioni',`${MostraPosizioni}`);BottonePosizioni.style.backgroundColor = 'green';BottonePosizioni.textContent = '√';}">x</button></div>
+                <b>Rumori delle armi</b>
+                <div class = "Riga"><button type = "button" id = "MostraISuoni"  onclick = "if(!MostraSuoni){MostraSuoni = true;window.localStorage.removeItem('MostraSuoni');BottoneSuoni.style.backgroundColor = 'green';BottoneSuoni.textContent = '√';}
+                else{MostraSuoni = false;window.localStorage.setItem('MostraSuoni',`${MostraSuoni}`);BottoneSuoni.style.backgroundColor = 'red';BottoneSuoni.textContent = 'x';}">√</button></div>
+                <div class = MiniCentratore>
+                <button type="button" id="Salva" onclick="Salva()">Salva</button>
+                <button type="button" id="Reset" onclick="Reset()">Ripristina predefiniti</button>
+            </div>
+            </div>
+        </dialog>
+        <script src = "DefinizioneClassi.js"></script>
+        <script src = "DefinizioneUtili.js"></script>
+        <script src = "AusilioOpzioni.js"></script>
+        <script src = "LogicaScontri.js"></script>
+    </body>
+</html>

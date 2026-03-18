@@ -177,7 +177,7 @@ function CambioArma(ArmaPresa,Spara,gap)
     ArmaInCanna.classList.add('slideOutDown');
     if(Spara != undefined){clearInterval(Spara); Spara = undefined;}
     if(gap != undefined){clearTimeout(gap); gap = undefined;}
-    setTimeout(() => {ArmaInCanna.setAttribute('src',`./Armi/${ArmaPresa.nome}.jpg`);
+    setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${ArmaPresa.nome}.jpg`);
     ArmaInCanna.classList.remove('slideOutDown');
     ArmaInCanna.classList.add('slideInUp');},500);
     setTimeout(() => {ArmaInCanna.classList.remove('slideInUp');Mirino.innerHTML = ArmaPresa.mirino;if(ArmaPresa.rateo != 45000){PiuInfo.textContent = `${ArmaPresa.munizioni}|${ArmaPresa.inventario}`;} else{PiuInfo.textContent = ""};},1000);
@@ -271,13 +271,13 @@ function Fine(Partita,DatiDiPosizione,MirID,Spara,vittoria,NemicoScelto)
             <button type = "button" id = "Abbandona" onclick = "if(RimaniQui){RimaniQui = false;} PannelloConferma.showModal()">Gioca ancora</button>`;
             Boss.style.transform = `scale(1)`;
             setTimeout(() =>{FrasiNemico.textContent = `${NemicoScelto.Frasi[1]}`},500);
-            ArmaInCanna.src = `./Animazioni/Animazione Vittoria contro ${NemicoScelto.nome}_1.jpg`;
-            Boss.src = `./Animazioni/Animazione Vittoria ${NemicoScelto.nome}_1.jpg`;
+            ArmaInCanna.src = `./Immagini/Animazioni/Animazione Vittoria contro ${NemicoScelto.nome}_1.jpg`;
+            Boss.src = `./Immagini/Animazioni/Animazione Vittoria ${NemicoScelto.nome}_1.jpg`;
             if(window.localStorage.getItem(`${NemicoScelto.nome}`) == null || difficoltà > window.localStorage.getItem(`${NemicoScelto.nome}`))
             {
                 window.localStorage.setItem(`${NemicoScelto.nome}`,`${difficoltà}`);
             }
-            setTimeout(() => {ArmaInCanna.src = `./Animazioni/Animazione Vittoria contro ${NemicoScelto.nome}_2.jpg`; Boss.src = `./Animazioni/Animazione Vittoria ${NemicoScelto.nome}_2.jpg`;},1500);
+            setTimeout(() => {ArmaInCanna.src = `./Immagini/Animazioni/Animazione Vittoria contro ${NemicoScelto.nome}_2.jpg`; Boss.src = `./Immagini/Animazioni/Animazione Vittoria ${NemicoScelto.nome}_2.jpg`;},1500);
             setTimeout(() => {PannelloPausa.showModal();},3000);
         }
         else
@@ -289,7 +289,7 @@ function Fine(Partita,DatiDiPosizione,MirID,Spara,vittoria,NemicoScelto)
             <button type = "button" id = "Abbandona" onclick = "if(RimaniQui){RimaniQui = false;} PannelloConferma.showModal()">Gioca ancora</button>`;
             ArmaInCanna.classList.add('slideOutDown');
             setTimeout(() =>{FrasiNemico.textContent = `${NemicoScelto.Frasi[2]}`},500);
-            setTimeout(() => {ArmaInCanna.classList.remove('slideOutDown'); ArmaInCanna.classList.add('slideInUp'); ArmaInCanna.src = "./Animazioni/Animazione Sconfitta.jpg"},500);
+            setTimeout(() => {ArmaInCanna.classList.remove('slideOutDown'); ArmaInCanna.classList.add('slideInUp'); ArmaInCanna.src = "./Immagini/Animazioni/Animazione Sconfitta.jpg"},500);
             setTimeout(() => {ArmaInCanna.classList.remove('slideInUp')},1000);
             setTimeout(() => {PannelloPausa.showModal();},3000);
         }
@@ -297,8 +297,8 @@ function Fine(Partita,DatiDiPosizione,MirID,Spara,vittoria,NemicoScelto)
 function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEquipaggiato,MischiaEquipaggiata,NemicoScelto,DatiDiPosizione)
 {
     let ArmaPresa = AssaltoEquipaggiato;
-    Boss.setAttribute('src',`./Nemici/${NemicoScelto.nome}.jpg`);
-    ArmaInCanna.setAttribute('src',`./Armi/${ArmaPresa.nome}.jpg`);
+    Boss.setAttribute('src',`./Immagini/Nemici/${NemicoScelto.nome}.jpg`);
+    ArmaInCanna.setAttribute('src',`./Immagini/Armi/${ArmaPresa.nome}.jpg`);
     Mirino.innerHTML = ArmaPresa.mirino;
     AttaccoNemico.textContent = NemicoScelto.attacco;
     PiuInfo.textContent = `${ArmaPresa.munizioni}|${ArmaPresa.inventario}`;

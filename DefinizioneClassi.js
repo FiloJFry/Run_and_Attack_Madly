@@ -2,7 +2,7 @@ class Nemico
 {
     constructor(nome,velocità,vita,attacco,coloreAttacco,Frasi)
     {
-        this._nome = nome;
+        this._nome = nome; 
         this._velocità = velocità;
         this._vita = vita;
         this._maxvita = vita;

@@ -1,7 +1,7 @@
 let DatiDiPosizione = new SaccoDiDati(0,100,100,100,false,false,false,false,false);
 let RimaniQui = true;
 let stavaattaccando;
-let stavamuovendosi;
+let stavamuovendosi; 
 let ComandoFuoco = 'Enter';
 let ComandoRicarica = ' ';
 let ComandoMuoviSu = 'ArrowUp';

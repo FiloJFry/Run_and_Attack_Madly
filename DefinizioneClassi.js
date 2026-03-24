@@ -387,7 +387,7 @@ class Personaggio
         }
         else
         {
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
+            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
         }
         this.Muovi(verso,DatiDiPosizione);
     }

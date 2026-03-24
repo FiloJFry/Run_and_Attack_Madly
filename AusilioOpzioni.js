@@ -1,6 +1,6 @@
 function AggiornaTesto(sComando)
 {
-    if(window.localStorage.getItem(sComando) != null)
+    if(window.localStorage.getItem(sComando) != null) 
     {    
         if(window.localStorage.getItem(sComando) != " ")
         {

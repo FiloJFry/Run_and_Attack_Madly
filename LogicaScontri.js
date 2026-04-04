@@ -517,7 +517,7 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
     Partita = setInterval(() => {
         if(Protagonista.vita == 0)
         {
-            return;
+            clearInterval(Partita);
         }
         else
         {

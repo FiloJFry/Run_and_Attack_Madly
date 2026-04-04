@@ -451,7 +451,7 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
                     Protagonista.Muovi(true,DatiDiPosizione);
                     if(MirID == undefined)
                     {
-                        MirID = setInterval(() => {AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);},10);
+                        MirID = setInterval(() => {AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza); if(!DatiDiPosizione.Corri && !DatiDiPosizione.InMoto){clearInterval(MirID); MirID = undefined;}},10);
                     }
                 }
             break;
@@ -464,7 +464,7 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
                     Protagonista.Muovi(false,DatiDiPosizione);
                     if(MirID == undefined)
                     {
-                        MirID = setInterval(() => {AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);},10);
+                        MirID = setInterval(() => {AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza); if(!DatiDiPosizione.Corri && !DatiDiPosizione.InMoto){clearInterval(MirID); MirID = undefined;}},10);
                     }
                 }
             break;
@@ -477,11 +477,6 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
                     case ComandoMuoviGiù:
                     DatiDiPosizione.Corri = false;
                     ArmaInCanna.classList.remove('shake');
-                    if(!DatiDiPosizione.InMoto)
-                    {
-                        clearInterval(MirID);
-                        MirID = undefined;
-                    }
                     break;
 
                     case ComandoFuoco:
@@ -503,11 +498,6 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
                     case ComandoMuoviGiù:
                     DatiDiPosizione.Corri = false;
                     ArmaInCanna.classList.remove('shake');
-                    if(!DatiDiPosizione.InMoto)
-                    {
-                        clearInterval(MirID);
-                        MirID = undefined;
-                    }
                     break;
 
                     case ComandoFuoco:
@@ -543,7 +533,7 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             NemicoScelto.Moto(DatiDiPosizione);
             if(MirID == undefined)
             {
-                MirID = setInterval(() => {AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);},10);
+                MirID = setInterval(() => {AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza); if(!DatiDiPosizione.Corri && !DatiDiPosizione.InMoto){clearInterval(MirID); MirID = undefined;}},10);
             }
             }
         }

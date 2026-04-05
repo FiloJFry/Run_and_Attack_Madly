@@ -227,6 +227,10 @@ function PausaRiprendi(DatiDiPosizione,NemicoScelto)
         DatiDiPosizione.InPausa = true;
         stavaattaccando = DatiDiPosizione.AllAttacco;
         stavamuovendosi = DatiDiPosizione.InMoto;
+        if(BarraMischia.style.width != "20vw")
+        {
+            BarraMischia.style.animationPlayState = "paused";
+        }
         PannelloPausa.showModal();
     }
     else
@@ -240,6 +244,10 @@ function PausaRiprendi(DatiDiPosizione,NemicoScelto)
         if(stavamuovendosi)
         {   
             NemicoScelto.Moto(DatiDiPosizione);
+        }
+        if(BarraMischia.style.width != "20vw")
+        {
+            BarraMischia.style.animationPlayState = "running";
         }
         PannelloPausa.close();
     }
@@ -431,8 +439,7 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
                 gap = setTimeout(() => {risparo = true;},ArmaPresa.rateo + 100);
                 if(ArmaPresa == MischiaEquipaggiata)
                 {
-                    BarraMischia.classList.add('BarraInCarica');
-                    setTimeout(() => {BarraMischia.classList.remove('BarraInCarica');},45000);
+                    ArmaPresa.Ricarica();
                 if(colpito)
                 {
                     Dotazione.forEach(A => {A.inventario = A.inventario + 3*A.maxmunizioni;});

@@ -312,7 +312,14 @@ class Mischia extends Arma
     }
     Ricarica()
     {   
-        setTimeout(() => {this.munizioni = 1},45000);
+        BarraMischia.classList.add('BarraInCarica');
+        BarraMischia.addEventListener('animationend',() => this.Fatto());
+    }
+    Fatto()
+    {   
+        this.munizioni = 1; 
+        BarraMischia.classList.remove('BarraInCarica');
+        BarraMischia.removeEventListener('animationend',() => this.Fatto());
     }
 }
 class Personaggio

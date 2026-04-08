@@ -1,6 +1,11 @@
+let PannelloOpzioni = document.querySelector('#Opzioni');
+let BottoneSalva = document.querySelector('#Salva');
+let BottonePosizioni = document.querySelector('#MostraLePosizioni');
+let BottoneSuoni = document.querySelector('#MostraISuoni');
+let NomiComandi = ['ComandoFuoco','ComandoRicarica','ComandoMuoviSu','ComandoMuoviGiù','ComandoSchiva','Comando0','Comando1','Comando2','Comando3'];
 function AggiornaTesto(sComando)
 {
-    if(window.localStorage.getItem(sComando) != null) 
+    if(window.localStorage.getItem(sComando) != null)
     {    
         if(window.localStorage.getItem(sComando) != " ")
         {
@@ -91,4 +96,41 @@ function ControllaComandi(Comandi)
 {
     let setaccio = Comandi.filter(C => C != null);
     return new Set(setaccio).size === setaccio.length;
+}
+function AggiornaTesti()
+{   
+    NomiComandi.forEach(T => {AggiornaTesto(T);});
+    NomiComandi.forEach(I => {AggiornaImmagineImpostazioni(I);});
+    if(window.localStorage.getItem('MostraPosizioni') != null)
+    {
+        BottonePosizioni.style.backgroundColor = 'green';
+        BottonePosizioni.textContent = '√';
+    }
+    if(window.localStorage.getItem('MostraSuoni') != null)
+    {
+        BottoneSuoni.style.backgroundColor = 'red';
+        BottoneSuoni.textContent = 'x';
+    }
+}
+function Salva()
+{   
+    let Comandi = NomiComandi.map(C => PrendiComando(C));
+    if(ControllaComandi(Comandi))
+    {   
+        Comandi.forEach((C,I) => {window.localStorage.setItem(NomiComandi[I],C)});
+        window.location.reload();
+    }
+    else
+    {   
+        BottoneSalva.textContent = "Comandi non validi";
+        BottoneSalva.classList.add('animated','shake');
+        setTimeout(() => {BottoneSalva.textContent = "Salva"; BottoneSalva.classList.remove('animated','shake');},1000);
+    }
+}
+function Reset()
+{
+    NomiComandi.forEach(N => {window.localStorage.removeItem(N);});
+    window.localStorage.removeItem("MostraPosizioni");
+    window.localStorage.removeItem("MostraSuoni");
+    window.location.reload();
 }

@@ -2,52 +2,13 @@ let BottoneConferma = document.querySelector('#Conferma');
 let PannelloTutorial = document.querySelector('#Tutorial');
 let MostraPosizioni = false;
 let MostraSuoni = true;
-let NomiComandi = ['ComandoFuoco','ComandoRicarica','ComandoMuoviSu','ComandoMuoviGiù','ComandoSchiva','Comando0','Comando1','Comando2','Comando3']; 
-let PannelloOpzioni = document.querySelector('#Opzioni');
-let BottoneSalva = document.querySelector('#Salva');
-let BottonePosizioni = document.querySelector('#MostraLePosizioni');
-let BottoneSuoni = document.querySelector('#MostraISuoni');
-function AggiornaTesti()
-{   
-    NomiComandi.forEach(T => {AggiornaTesto(T);});
-    NomiComandi.forEach(I => {AggiornaImmagineImpostazioni(I);});
-    if(window.localStorage.getItem('MostraPosizioni') != null)
-    {
-        BottonePosizioni.style.backgroundColor = 'green';
-        BottonePosizioni.textContent = '√';
-    }
-    if(window.localStorage.getItem('MostraSuoni') != null)
-    {
-        BottoneSuoni.style.backgroundColor = 'red';
-        BottoneSuoni.textContent = 'x';
-    }
-}
-function Salva()
-{   
-    let Comandi = NomiComandi.map(C => PrendiComando(C));
-    if(ControllaComandi(Comandi))
-    {   
-        Comandi.forEach((C,I) => {window.localStorage.setItem(NomiComandi[I],C)});
-        window.location.reload();
-    }
-    else
-    {   
-        BottoneSalva.textContent = "Comandi non validi";
-        BottoneSalva.classList.add('animated','shake');
-        setTimeout(() => {BottoneSalva.textContent = "Salva"; BottoneSalva.classList.remove('animated','shake');},1000);
-    }
-}
-function Reset()
-{
-    NomiComandi.forEach(N => {window.localStorage.removeItem(N);});
-    window.localStorage.removeItem("MostraPosizioni");
-    window.localStorage.removeItem("MostraSuoni");
-    window.location.reload();
-}
 function SegnaRisposta(classe,id)
 {
     document.querySelectorAll(`${classe}`).forEach(Blocco => {Blocco.style.backgroundColor = "black"});
-    Nemici.forEach(N => {ColoraNemico(N.nome)});
+    if(classe == ".N")
+    {
+        Nemici.forEach(N => {ColoraNemico(N.nome)});
+    }
     document.querySelector(`#${id}`).style.backgroundColor = "blue";
 }
 function ScegliNemico(classe,nome)

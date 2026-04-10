@@ -82,6 +82,7 @@ class Nemico
         {
             DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
+            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
             this.Attacco(DatiDiPosizione);
         }
         else
@@ -127,11 +128,14 @@ class Nemico
             }
         }
         spazio -= 1;
-        Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`;      
+        Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`;
+        PosizioneNemico.textContent = `Posizione Nemico: ${DatiDiPosizione.posA}`; 
+        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
         if(AttaccoNemico.style.color == "transparent")
         {
             DatiDiPosizione.distanzaAG = DatiDiPosizione.distanza;
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
+            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
         }
         this.AggiornaPosizione(direzione,DatiDiPosizione,spazio);
         }
@@ -402,6 +406,16 @@ class Personaggio
         AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
         Segnaposto1.style.transform = `scale(${10/Math.max(DatiDiPosizione.posG,10)})`;
         Segnaposto2.style.transform = `scale(${10/Math.max(200 - DatiDiPosizione.posG,10)})`;
+        PosizioneGiocatore.textContent = `Posizione Giocatore: ${DatiDiPosizione.posG}`; 
+        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
+        if(AttaccoNemico.style.color == "transparent")
+        {
+            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
+        }
+        else
+        {
+            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
+        }
         this.Muovi(verso,DatiDiPosizione);
     }
     else

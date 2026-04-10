@@ -1,12 +1,8 @@
 let BottoneConferma = document.querySelector('#Conferma');
-let PannelloTutorial = document.querySelector('#Tutorial');
 function SegnaRisposta(classe,id)
 {
     document.querySelectorAll(`${classe}`).forEach(Blocco => {Blocco.style.backgroundColor = "black"});
-    if(classe == ".N")
-    {
-        Nemici.forEach(N => {ColoraNemico(N.nome)});
-    }
+    Nemici.forEach(N => {ColoraNemico(N.nome)});
     document.querySelector(`#${id}`).style.backgroundColor = "blue";
 }
 function ScegliNemico(classe,nome)
@@ -58,7 +54,7 @@ function Conferma()
         sessionStorage.setItem("CecchinoEquipaggiato",CecchinoEquipaggiato.nome);
         sessionStorage.setItem("MischiaEquipaggiata",MischiaEquipaggiata.nome);
         sessionStorage.setItem("Difficoltà",`${difficoltà}`);
-        window.location.href = "CampoDiBattaglia.html";
+        window.location.href = "./CampoDiBattaglia.html";
     } 
     else
     {

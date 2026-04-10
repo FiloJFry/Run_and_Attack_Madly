@@ -2,7 +2,7 @@ class Nemico
 {
     constructor(nome,velocità,vita,attacco,coloreAttacco,Frasi)
     {
-        this._nome = nome; 
+        this._nome = nome;
         this._velocità = velocità;
         this._vita = vita;
         this._maxvita = vita;
@@ -70,7 +70,8 @@ class Nemico
             Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
             FrasiNemico.textContent = `${this.Frasi[0]}`;
             AttaccoNemico.style.color = this.coloreAttacco;
-            setTimeout(() => {Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); FrasiNemico.textContent = "";},1000);
+            let t = 0;
+            let dice = setInterval(() => {if(!DatiDiPosizione.InPausa){t += 10; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); FrasiNemico.textContent = ""; clearInterval(dice)}}},10);
             this.Attacco(DatiDiPosizione);
         }
     }
@@ -81,7 +82,6 @@ class Nemico
         {
             DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
             this.Attacco(DatiDiPosizione);
         }
         else
@@ -128,13 +128,10 @@ class Nemico
         }
         spazio -= 1;
         Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`;
-        PosizioneNemico.textContent = `Posizione Nemico: ${DatiDiPosizione.posA}`;
-        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
         if(AttaccoNemico.style.color == "transparent")
         {
             DatiDiPosizione.distanzaAG = DatiDiPosizione.distanza;
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
         }
         this.AggiornaPosizione(direzione,DatiDiPosizione,spazio);
         }
@@ -257,13 +254,12 @@ class Arma
             setTimeout(() => {PiuInfo.style.color = 'white';},1000);
         }
     }
-    Ricarica()
+    Ricarica(DatiDiPosizione)
     {   
         if(this.inventario > 0 && this.munizioni < this.maxmunizioni)
-        {
-            this.Step("Ricarica","_ricarica1");
-            setTimeout(() => {this.Step("Ricarica","_ricarica2")},1000);
-            setTimeout(() => {this.Step("Armi","")},2000);
+        {   
+            DatiDiPosizione.InCarica = true;
+            this.Step("Ricarica","_ricarica1",DatiDiPosizione);
         }
         else if(this.inventario == 0)
         {
@@ -271,15 +267,32 @@ class Arma
             setTimeout(() => {PiuInfo.style.color = "white";},1000);
         }
     }
-    Step(a,p)
+    Step(a,p,DatiDiPosizione)
     {
-        ArmaInCanna.classList.add('slideOutDown');
-        setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/${a}/${this.nome}${p}.jpg`); ArmaInCanna.classList.remove('slideOutDown'); ArmaInCanna.classList.add('slideInUp'); if(p != ""){RumoriArma.textContent = `${this.Rumori[p.split('a')[2]]}`;} else{RumoriArma.textContent = "";}},500);
-        setTimeout(() => {ArmaInCanna.classList.remove('slideInUp');
-        if(p == "")
-        {   
+        ArmaInCanna.classList.add('VaiGiù');
+        ArmaInCanna.addEventListener('animationend',(event) => {if(event.animationName == "vaiGiù"){
+        ArmaInCanna.classList.remove('VaiGiù'); 
+        ArmaInCanna.setAttribute('src',`./Immagini/${a}/${this.nome}${p}.jpg`); 
+        ArmaInCanna.classList.add('TornaSu'); 
+        ArmaInCanna.addEventListener('animationend',(event) => {if(event.animationName == "tornaSu"){
+        ArmaInCanna.classList.remove('TornaSu');
+        if(p != "")
+        {
+            RumoriArma.textContent = `${this.Rumori[p.split('a')[2]]}`;
+            if(p.split('a')[2] == 1)
+            {   
+                this.Step("Ricarica","_ricarica2",DatiDiPosizione);
+            }
+            else
+            {   
+                this.Step("Armi","",DatiDiPosizione);
+            }
+        } 
+        else
+        {
+            RumoriArma.textContent = "";
             let carica = this.maxmunizioni - this.munizioni;
-            if(this.inventario < carica)
+        if(this.inventario < carica)
         {
             this.munizioni += this.inventario;
             this.inventario = 0;
@@ -290,7 +303,10 @@ class Arma
             this.munizioni = this.maxmunizioni;
         }
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
-        }},1000);
+            DatiDiPosizione.InCarica = false;
+        }
+        }},{once: true,});
+        }},{once: true,});
     }
 }
 class Mischia extends Arma
@@ -302,25 +318,20 @@ class Mischia extends Arma
             ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
             this.munizioni = 0;
             setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`);},100);
-            this.Ricarica();
         }
         else
         {
             document.querySelector('#PienBarraMischia').style.backgroundColor = 'red';
             setTimeout(() => {document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';},1000);
         }
+        this.Ricarica();
     }
     Ricarica()
     {   
         BarraMischia.classList.add('BarraInCarica');
-        BarraMischia.addEventListener('animationend',() => this.Fatto());
+        BarraMischia.addEventListener('animationend',() => {this.munizioni = 1; BarraMischia.classList.remove('BarraInCarica');},{once: true,});
     }
-    Fatto()
-    {   
-        this.munizioni = 1; 
-        BarraMischia.classList.remove('BarraInCarica');
-        BarraMischia.removeEventListener('animationend',() => this.Fatto());
-    }
+
 }
 class Personaggio
 {   
@@ -345,10 +356,15 @@ class Personaggio
     {
         return this._velocità;
     }
-    Schiva()
+    Schiva(DatiDiPosizione)
     {
-        ArmaInCanna.classList.add('slideOutRight');
-        setTimeout(() => {ArmaInCanna.classList.remove('slideOutRight')},400);
+        PersonaggioGiocabile.classList.add('Schivata');
+        DatiDiPosizione.Schivando = true;
+        DatiDiPosizione.PuòSchivare = false;
+        PersonaggioGiocabile.addEventListener('animationend',(event) => {if(event.animationName == "scattaDestra"){PersonaggioGiocabile.classList.remove('Schivata');
+        DatiDiPosizione.Schivando = false;
+        let sec = 0;
+        let riprenditi = setInterval(() => {if(!DatiDiPosizione.InPausa){sec += 10; if(sec >= 600){DatiDiPosizione.PuòSchivare = true; clearInterval(riprenditi);}}},10);}},{once: true,});
     }
     Muovi(verso,DatiDiPosizione)
     {   
@@ -386,16 +402,6 @@ class Personaggio
         AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
         Segnaposto1.style.transform = `scale(${10/Math.max(DatiDiPosizione.posG,10)})`;
         Segnaposto2.style.transform = `scale(${10/Math.max(200 - DatiDiPosizione.posG,10)})`;
-        PosizioneGiocatore.textContent = `Posizione Giocatore: ${DatiDiPosizione.posG}`;
-        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
-        if(AttaccoNemico.style.color == "transparent")
-        {
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
-        }
-        else
-        {
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
-        }
         this.Muovi(verso,DatiDiPosizione);
     }
     else
@@ -406,7 +412,7 @@ class Personaggio
 }
 class SaccoDiDati
 {
-    constructor(posG,posA,distanza,distanzaAG,Corri,Schivando,InMoto,AllAttacco,InPausa)
+    constructor(posG,posA,distanza,distanzaAG,Corri,Schivando,InMoto,AllAttacco,InPausa,InCarica,PuòSchivare)
     {
         this._posG = posG;
         this._posA = posA;
@@ -414,9 +420,11 @@ class SaccoDiDati
         this._distanzaAG = distanzaAG;
         this._Corri = Corri;
         this.Schivando = Schivando;
+        this._PuòSchivare = PuòSchivare;
         this._InMoto = InMoto;
         this._AllAttacco = AllAttacco;
         this._InPausa = InPausa;
+        this._InCarica = InCarica;
     }
     set posG(nposG)
     {
@@ -466,6 +474,14 @@ class SaccoDiDati
     {
         return this._Schivando;
     }
+    set PuòSchivare(p)
+    {
+        this._PuòSchivare = p;
+    }
+    get PuòSchivare()
+    {
+        return this._PuòSchivare;
+    }
     set InMoto(InMoto)
     {
         this._InMoto = InMoto;
@@ -489,5 +505,13 @@ class SaccoDiDati
     get InPausa()
     {
         return this._InPausa;
+    }
+    set InCarica(c)
+    {
+        this._InCarica = c;
+    }
+    get InCarica()
+    {
+        return this._InCarica;
     }
 }

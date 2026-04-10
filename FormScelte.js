@@ -1,7 +1,5 @@
 let BottoneConferma = document.querySelector('#Conferma');
 let PannelloTutorial = document.querySelector('#Tutorial');
-let MostraPosizioni = false;
-let MostraSuoni = true;
 function SegnaRisposta(classe,id)
 {
     document.querySelectorAll(`${classe}`).forEach(Blocco => {Blocco.style.backgroundColor = "black"});
@@ -65,7 +63,7 @@ function Conferma()
     else
     {
         BottoneConferma.textContent = "Controlla le risposte"; 
-        BottoneConferma.classList.add('animated','shake'); 
-        setTimeout(() =>  {BottoneConferma.classList.remove('animated','shake'); BottoneConferma.textContent = "Battaglia battaglia battaglia!";},1000)
+        BottoneConferma.classList.add('Scuoti'); 
+        setTimeout(() =>  {BottoneConferma.classList.remove('Scuoti'); BottoneConferma.textContent = "Battaglia battaglia battaglia!";},1000)
     }
 }

@@ -40,14 +40,14 @@ h4{
     left: 40%;
     right: 40%;
 }
-#Arma{
+.Personaggio{
     width: 20vw;
     height: 16vw;
     object-fit: contain;
     position: absolute;
     z-index: 2;
     bottom: 0vh;
-    left: 40%;
+    left: 33.5%;
 }
 #Nemico
 {
@@ -187,31 +187,4 @@ h4{
 }
 #BottoneOpzioni{
     background-color: orange;
-}
-@keyframes CaricaBarra
-{
-    from
-    {
-        width: 0vw;
-    }
-    to
-    {
-        width: 20vw;
-    }
-}
-.BarraInCarica{
-    animation: CaricaBarra 45s linear;
-}
-.slideOutDown{
-    animation-duration: 0.5s;
-}
-.slideInUp{
-    animation-duration: 0.5s;
-}
-.slideOutRight{
-    animation-duration: 0.4s;
-}
-.shake{
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
 }

@@ -1,3 +1,5 @@
+let MostraPosizioni = false;
+let MostraSuoni = true;
 let PannelloOpzioni = document.querySelector('#Opzioni');
 let BottoneSalva = document.querySelector('#Salva');
 let BottonePosizioni = document.querySelector('#MostraLePosizioni');
@@ -123,8 +125,8 @@ function Salva()
     else
     {   
         BottoneSalva.textContent = "Comandi non validi";
-        BottoneSalva.classList.add('animated','shake');
-        setTimeout(() => {BottoneSalva.textContent = "Salva"; BottoneSalva.classList.remove('animated','shake');},1000);
+        BottoneSalva.classList.add('Scuoti');
+        setTimeout(() => {BottoneSalva.textContent = "Salva"; BottoneSalva.classList.remove('Scuoti');},1000);
     }
 }
 function Reset()

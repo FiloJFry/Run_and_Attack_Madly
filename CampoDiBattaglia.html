@@ -6,7 +6,7 @@
         <title>Run and Attack Madly</title>
         <link rel = "stylesheet" type = "text/css" href = "AspettoDiBattaglia.css"/>
         <link rel = "stylesheet" type="text/css" href = "MenùOpzioni.css" />
-        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+        <link rel="stylesheet" href="Animazioni.css">
     </head>
     <body onload = "VaiVaiVai()">
         <div class = "Centratore">
@@ -25,7 +25,7 @@
         <div id = "Info">1000|9000</div>
         <div id = "PienBarraMischia"></div><div id = "BarraMischia"></div>
         <div id = "HP">HP: 4</div>
-        <img id= "Arma" src = "./Immagini/Armi/Distributore di palline.jpg" alt = "Arma"/>
+        <div id = "PGiocabile" class = "Personaggio"><img id= "Arma" class = "Personaggio" src = "./Immagini/Armi/Distributore di palline.jpg" alt = "Arma"/></div>
         <div id = "Info2"><h4 id = "posG">Posizione Giocatore: 0</h4><h4 id = "posA">Posizione Nemico: 100</h4><h4 id = "distanza">Distanza: 100</h4><h4 id = "distanzaAG">Distanza Attacco-Giocatore: 100</h4></div>
         <dialog id = "Pausa">
             <div id = "SchermataPausa">
@@ -60,8 +60,6 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
-                    <option value="Control">Ctrl</option>
-                    <option value="Alt">Alt</option>
                     <option value="Delete">Cancella</option>
                 </select>
             </div>
@@ -75,8 +73,6 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
-                    <option value="Control">Ctrl</option>
-                    <option value="Alt">Alt</option>
                     <option value="Delete">Cancella</option>
                 </select>
             </div>
@@ -90,8 +86,6 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
-                    <option value="Control">Ctrl</option>
-                    <option value="Alt">Alt</option>
                     <option value="Delete">Cancella</option>
                 </select>
             </div>
@@ -105,8 +99,6 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
-                    <option value="Control">Ctrl</option>
-                    <option value="Alt">Alt</option>
                     <option value="Delete">Cancella</option>
                 </select>
             </div>
@@ -120,8 +112,6 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
-                    <option value="Control">Ctrl</option>
-                    <option value="Alt">Alt</option>
                     <option value="Delete">Cancella</option>
                 </select>
                 <div class="Riga"><b>Equipaggia arma da mischia:</b><input type="text" maxlength="1" size = "1" name="Comando0" />

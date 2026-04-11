@@ -82,7 +82,6 @@ class Nemico
         {
             DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
             this.Attacco(DatiDiPosizione);
         }
         else
@@ -128,14 +127,11 @@ class Nemico
             }
         }
         spazio -= 1;
-        Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`;
-        PosizioneNemico.textContent = `Posizione Nemico: ${DatiDiPosizione.posA}`; 
-        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
+        Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`;      
         if(AttaccoNemico.style.color == "transparent")
         {
             DatiDiPosizione.distanzaAG = DatiDiPosizione.distanza;
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
         }
         this.AggiornaPosizione(direzione,DatiDiPosizione,spazio);
         }
@@ -365,10 +361,10 @@ class Personaggio
         PersonaggioGiocabile.classList.add('Schivata');
         DatiDiPosizione.Schivando = true;
         DatiDiPosizione.PuòSchivare = false;
-        PersonaggioGiocabile.addEventListener('animationend',(event) => {if(event.animationName == "scattaDestra"){PersonaggioGiocabile.classList.remove('Schivata');
+        PersonaggioGiocabile.addEventListener('animationend',() => {PersonaggioGiocabile.classList.remove('Schivata');
         DatiDiPosizione.Schivando = false;
         let sec = 0;
-        let riprenditi = setInterval(() => {if(!DatiDiPosizione.InPausa){sec += 10; if(sec >= 600){DatiDiPosizione.PuòSchivare = true; clearInterval(riprenditi);}}},10);}},{once: true,});
+        let riprenditi = setInterval(() => {if(!DatiDiPosizione.InPausa){sec += 10; if(sec >= 600){DatiDiPosizione.PuòSchivare = true; clearInterval(riprenditi);}}},10);},{once: true,});
     }
     Muovi(verso,DatiDiPosizione)
     {   
@@ -406,16 +402,6 @@ class Personaggio
         AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
         Segnaposto1.style.transform = `scale(${10/Math.max(DatiDiPosizione.posG,10)})`;
         Segnaposto2.style.transform = `scale(${10/Math.max(200 - DatiDiPosizione.posG,10)})`;
-        PosizioneGiocatore.textContent = `Posizione Giocatore: ${DatiDiPosizione.posG}`; 
-        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
-        if(AttaccoNemico.style.color == "transparent")
-        {
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
-        }
-        else
-        {
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
-        }
         this.Muovi(verso,DatiDiPosizione);
     }
     else

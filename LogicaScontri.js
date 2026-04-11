@@ -245,6 +245,9 @@ function PausaRiprendi(DatiDiPosizione,NemicoScelto)
         stavamuovendosi = DatiDiPosizione.InMoto;
         ArmaInCanna.style.animationPlayState = "paused";
         BarraMischia.style.animationPlayState = "paused";
+        PersonaggioGiocabile.style.animationPlayState = "paused";
+        PersonaggioGiocabile.classList.remove('Scuoti');
+        DatiDiPosizione.Corri = false;
         PannelloPausa.showModal();
     }
     else
@@ -253,7 +256,6 @@ function PausaRiprendi(DatiDiPosizione,NemicoScelto)
         if(stavaattaccando)
         {   
             DatiDiPosizione.AllAttacco = true;
-            AttaccoNemico.style.color = NemicoScelto.coloreAttacco;
             NemicoScelto.Attacco(DatiDiPosizione); 
         }
         if(stavamuovendosi)
@@ -262,6 +264,7 @@ function PausaRiprendi(DatiDiPosizione,NemicoScelto)
         }
         ArmaInCanna.style.animationPlayState = "running";
         BarraMischia.style.animationPlayState = "running";
+        PersonaggioGiocabile.style.animationPlayState = "running";
         PannelloPausa.close();
     }
 }

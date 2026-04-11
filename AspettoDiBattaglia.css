@@ -170,33 +170,6 @@ h4{
     display: flex;
     flex-direction: column;
 }
-@keyframes CaricaBarra
-{
-    from
-    {
-        width: 0vw;
-    }
-    to
-    {
-        width: 20vw;
-    }
-}
-.BarraInCarica{
-    animation: CaricaBarra 45s linear;
-}@keyframes CaricaBarra
-{
-    from
-    {
-        width: 0vw;
-    }
-    to
-    {
-        width: 20vw;
-    }
-}
-.BarraInCarica{
-    animation: CaricaBarra 45s linear;
-}
 #Riprendi{
     background-color: blue;
 }

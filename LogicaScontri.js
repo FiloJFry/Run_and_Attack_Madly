@@ -61,6 +61,12 @@ function Pulisci(Spara,gap,risparo)
     }
     risparo = true;
 }
+function Rifornisci()
+{
+    ShotgunEquipaggiato.inventario += 3*ShotgunEquipaggiato.maxmunizioni;
+    AssaltoEquipaggiato.inventario += 3*AssaltoEquipaggiato.maxmunizioni;
+    CecchinoEquipaggiato.inventario += 3*CecchinoEquipaggiato.maxmunizioni;
+}
 function CambioArma(ArmaPresa,Spara,gap,DatiDiPosizione)
 {
     ArmaInCanna.classList.add('VaiGiù');

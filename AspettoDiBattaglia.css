@@ -1,6 +1,6 @@
 *{
     box-sizing: border-box;
-}
+} 
 body{
     background-color: black;
     overflow: hidden;
@@ -18,12 +18,12 @@ h4{
     z-index: 2;
 }
 #Frasi{
-    font: italic small-caps 2.4vw;
+    font: italic small-caps 2.4vw cursive;
     color: white;
     position: absolute;
     left: 70vw;
     top: 0;
-    z-index: 3;
+    z-index: 2;
 }
 #Attacco{
     font-size: 16vw;
@@ -67,7 +67,7 @@ h4{
     color: white;
     margin: 2vw;
     position: absolute;
-    bottom: 52vh;
+    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,12 +79,17 @@ h4{
     width: 8vw;
     padding: 1vw;
     position: absolute;
-    bottom: 64vh;
+    bottom: 30vh;
     z-index: 2;
     color: white;
     fonT-size: 2.5vw;
-    left: 78vw;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#Info2{
+    position: absolute;
+    left: 80vw;
+    bottom: 0;
+    color: transparent;
 }
 #PienBarra{
     width: 32vw;
@@ -110,9 +115,8 @@ h4{
     background-color: white;
     position: absolute;
     z-index: 2;
-    bottom: 55vh;
+    bottom: 22vh;
     margin: 1vw;
-    right: 0;
 }
 #BarraMischia{
     width: 20vw;
@@ -120,22 +124,21 @@ h4{
     background-color: blue;
     position: absolute;
     z-index: 3;
-    bottom: 55vh;
+    bottom: 22vh;
     margin: 1vw;
-    right: 0;
 }
 #S1{
     font-size: 12vw;
     color: green;
     position: absolute;
-    bottom: 33vh;
+    top: -16vh;
 }
 #S2{
     font-size: 12vw;
-    color: purple;
+    color: yellow;
     position: absolute;
+    top: -16vh;
     right: 0vw;
-    bottom: 33vh;
 }
 .Centratore
 {
@@ -167,6 +170,33 @@ h4{
     display: flex;
     flex-direction: column;
 }
+@keyframes CaricaBarra
+{
+    from
+    {
+        width: 0vw;
+    }
+    to
+    {
+        width: 20vw;
+    }
+}
+.BarraInCarica{
+    animation: CaricaBarra 45s linear;
+}@keyframes CaricaBarra
+{
+    from
+    {
+        width: 0vw;
+    }
+    to
+    {
+        width: 20vw;
+    }
+}
+.BarraInCarica{
+    animation: CaricaBarra 45s linear;
+}
 #Riprendi{
     background-color: blue;
 }
@@ -184,108 +214,4 @@ h4{
 }
 #BottoneOpzioni{
     background-color: orange;
-}
-.Comandi{
-    width: 10vw;
-    height: 10vw;
-    color: white;
-    opacity: 0.5;
-    border-radius: 0.5vw;
-    position: absolute;
-    font-size: 7vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    -webkit-user-select: none; 
-    -moz-user-select: none;  
-    -ms-user-select: none;  
-    user-select: none; 
-    z-index: 3;
-}
-.CambioArmi{
-    width: 7vw;
-    height: 7vw;
-    color: black;
-    opacity: 0.5;
-    border-radius: 0.5vw;
-    position: absolute;
-    font-size: 4vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    -webkit-user-select: none; 
-    -moz-user-select: none;  
-    -ms-user-select: none;  
-    user-select: none; 
-    z-index: 3;
-}
-.movimento{
-    background-color:aqua;
-}
-#Schiva{
-    background-color:blue;
-    left: 17vw;
-    bottom: 12.5vh
-}
-#Spara{
-    background-color:red;
-    border-color: red;
-    right: 18vw;
-    bottom: 25vh;
-}
-#Ricarica{
-    background-color:green;
-    right: 18vw;
-    bottom: 0vh;
-}
-#MuoviSu{
-    left: 4vw;
-    bottom: 25vh;
-}
-#MuoviGiù{
-    left: 4vw;
-    bottom: 0vh;
-}
-#Mischia{
-    right: 0vw;
-    bottom: 5vh;
-}
-#Shotgun{
-    right: 7.5vw;
-    bottom: 20vh;
-}
-#Assalto{
-    right: 0vw;
-    bottom: 20vh;
-}
-#Cecchino{
-    right: 7.5vw;
-    bottom: 5vh;
-}
-@keyframes CaricaBarra
-{
-    from
-    {
-        width: 0vw;
-    }
-    to
-    {
-        width: 20vw;
-    }
-}
-.BarraInCarica{
-    animation: CaricaBarra 45s linear;
-}
-.slideOutDown{
-    animation-duration: 0.5s;
-}
-.slideInUp{
-    animation-duration: 0.5s;
-}
-.slideOutRight{
-    animation-duration: 0.4s;
-}
-.shake{
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
 }

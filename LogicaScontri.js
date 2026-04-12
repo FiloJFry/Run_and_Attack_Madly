@@ -318,11 +318,11 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             {   
                 Spara = setInterval(() => {if(!DatiDiPosizione.InPausa){ArmaPresa.Spara(DatiDiPosizione,NemicoScelto);}},ArmaPresa.rateo + 100);
             }
-            else
+            else if(risparo)
             {   
                 risparo = false;
                 let cont = 0;
-                gap = setInterval(() => {if(!DatiDiPosizione.InPausa){cont += 10; if(cont >= ArmaPresa.rateo + 100){risparo = true;}}},10);
+                gap = setInterval(() => {if(!DatiDiPosizione.InPausa){cont += 50; if(cont >= ArmaPresa.rateo + 100){risparo = true;}}},50);
             }
         }
             break;

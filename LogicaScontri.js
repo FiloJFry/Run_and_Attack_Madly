@@ -47,7 +47,7 @@ function AggiornaMirino(ArmaEquipaggiata,distanza)
         Mirino.style.color = 'white';
     }
 }
-function Pulisci(Spara,gap,risparo)
+function Pulisci(Spara,gap)
 {
     if(Spara != undefined)
     {
@@ -59,7 +59,6 @@ function Pulisci(Spara,gap,risparo)
         clearInterval(gap);
         gap = undefined;
     }
-    risparo = true;
 }
 function Rifornisci()
 {
@@ -245,7 +244,8 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             case Comando0: 
             if(ArmaPresa != MischiaEquipaggiata && !DatiDiPosizione.InCarica)
             {
-            Pulisci(Spara,gap,risparo);
+            Pulisci(Spara,gap);
+            risparo = true;
             Colpo = CambioArma(MischiaEquipaggiata,Spara,gap,risparo);
             ArmaPresa = MischiaEquipaggiata;
             if(MirID == undefined)
@@ -258,7 +258,8 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             case Comando1:
                 if(ArmaPresa != ShotgunEquipaggiato && !DatiDiPosizione.InCarica)
                 {
-            Pulisci(Spara,gap,risparo);
+            Pulisci(Spara,gap);
+            risparo = true;
             Colpo = CambioArma(ShotgunEquipaggiato,Spara,gap,risparo);
             ArmaPresa = ShotgunEquipaggiato;
             if(MirID == undefined)
@@ -271,7 +272,8 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             case Comando2:
                 if(ArmaPresa != AssaltoEquipaggiato && !DatiDiPosizione.InCarica)
                 {
-            Pulisci(Spara,gap,risparo);
+            Pulisci(Spara,gap);
+            risparo = true;
             Colpo = CambioArma(AssaltoEquipaggiato,Spara,gap,risparo);
             ArmaPresa = AssaltoEquipaggiato;
             if(MirID == undefined)
@@ -284,7 +286,8 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             case Comando3:
                 if(ArmaPresa != CecchinoEquipaggiato && !DatiDiPosizione.InCarica)
                 {
-            Pulisci(Spara,gap,risparo);
+            Pulisci(Spara,gap);
+            risparo = true;
             Colpo = CambioArma(CecchinoEquipaggiato,Spara,gap,risparo);
             ArmaPresa = CecchinoEquipaggiato;
             if(MirID == undefined)
@@ -297,7 +300,8 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             case ComandoRicarica:
             if(ArmaPresa != MischiaEquipaggiata && !DatiDiPosizione.InCarica)
             {   
-                Pulisci(Spara,gap,risparo);
+                Pulisci(Spara,gap);
+                risparo = true;
                 ArmaPresa.Ricarica(DatiDiPosizione);
             }
             break;
@@ -322,7 +326,7 @@ function Gioco(Protagonista,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEqui
             {   
                 risparo = false;
                 let cont = 0;
-                gap = setInterval(() => {if(!DatiDiPosizione.InPausa){cont += 50; if(cont >= ArmaPresa.rateo + 100){risparo = true;}}},50);
+                gap = setInterval(() => {if(!DatiDiPosizione.InPausa){cont += 100; if(cont >= ArmaPresa.rateo + 100){risparo = true;}}},100);
             }
         }
             break;

@@ -138,6 +138,7 @@ class Nemico
             AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
             DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;   
         }
+        AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);
         this.AggiornaPosizione(direzione,DatiDiPosizione,spazio);
         }
         else
@@ -243,6 +244,33 @@ class Arma
     {
         return this._Rumori;
     }
+    Fuoco(DatiDiPosizione,NemicoScelto)
+    {
+        this.Spara(DatiDiPosizione,NemicoScelto);
+        Colpo = true;
+        if(this.altorateo)
+        {   
+            Spara = setInterval(() => {this.Spara(DatiDiPosizione,NemicoScelto);},this.rateo + 100);
+        }
+        else
+        {   
+            risparo = false;
+            let cont = 0;
+            gap = setInterval(() => {if(!DatiDiPosizione.InPausa){cont += 100; if(cont >= this.rateo + 100){clearInterval(gap); risparo = true;}}},100);
+        }
+    }
+    Arresta()
+    {
+        Colpo = false;
+        if(this.altorateo)
+        {
+            if(Spara != undefined)
+            {
+                clearInterval(Spara);
+                Spara = undefined;
+            }
+        }
+    }
     Spara(DatiDiPosizione,NemicoScelto)
     {    
         if(this.munizioni > 0)
@@ -325,7 +353,9 @@ class Mischia extends Arma
             this.munizioni = 0;
             if(Preso(this,DatiDiPosizione.distanza,NemicoScelto))
             {
-                Rifornisci();
+                ShotgunEquipaggiato.inventario += 3*ShotgunEquipaggiato.maxmunizioni;
+                AssaltoEquipaggiato.inventario += 3*AssaltoEquipaggiato.maxmunizioni;
+                CecchinoEquipaggiato.inventario += 3*CecchinoEquipaggiato.maxmunizioni;
             }
             setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`);},100);
         }
@@ -422,6 +452,7 @@ class Personaggio
         {
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
         }
+        AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);
         this.Muovi(verso,DatiDiPosizione);
     }
     else

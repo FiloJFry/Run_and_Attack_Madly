@@ -62,88 +62,88 @@ class Nemico
     {
         return this._Frasi;
     }
-    AllAttacco(DatiDiPosizione,Protagonista)
+    AllAttacco(Protagonista)
     {   
-        if(!DatiDiPosizione.InPausa)
+        if(!InPausa)
         {
-            DatiDiPosizione.AllAttacco = true;
+            AllAttacco = true;
             Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
             FrasiNemico.textContent = `${this.Frasi[0]}`;
             AttaccoNemico.style.color = this.coloreAttacco;
             let t = 0;
-            let dice = setInterval(() => {if(!DatiDiPosizione.InPausa){t += 10; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); FrasiNemico.textContent = ""; clearInterval(dice)}}},10);
-            this.Attacco(DatiDiPosizione,Protagonista);
+            let dice = setInterval(() => {if(!InPausa){t += 10; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); FrasiNemico.textContent = ""; clearInterval(dice)}}},10);
+            this.Attacco(Protagonista);
         }
     }
-    Attacco(DatiDiPosizione,Protagonista)
+    Attacco(Protagonista)
     {   
         setTimeout(() => {
-        if(DatiDiPosizione.distanzaAG > 0 && !DatiDiPosizione.InPausa)
+        if(distanzaAG > 0 && !InPausa)
         {
-            DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG - 1;
-            AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;   
-            this.Attacco(DatiDiPosizione,Protagonista);
+            distanzaAG = distanzaAG - 1;
+            AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
+            this.Attacco(Protagonista);
         }
         else
         {   
-            Colpito(DatiDiPosizione,Protagonista);
-            DatiDiPosizione.AllAttacco = false;
+            Colpito(Protagonista);
+            AllAttacco = false;
             return;
         }},1000/this.velocità);
     }
-    Moto(DatiDiPosizione)
+    Moto()
     {   
         let direzione = Math.random() < 0.5;
         let spazio = Math.random()*200;
-        DatiDiPosizione.InMoto = true;
-        this.AggiornaPosizione(direzione,DatiDiPosizione,spazio);
+        InMoto = true;
+        this.AggiornaPosizione(direzione,spazio);
     }
-    AggiornaPosizione(direzione,DatiDiPosizione,spazio)
+    AggiornaPosizione(direzione,spazio)
     {   
         setTimeout(() => {
-        if(spazio > 0 && DatiDiPosizione.InMoto && DatiDiPosizione.posA >= 0 && DatiDiPosizione.posA <= 200 && !DatiDiPosizione.InPausa)
+        if(spazio > 0 && InMoto && posA >= 0 && posA <= 200 && !InPausa)
         {
-        if(direzione && DatiDiPosizione.posA > 0)
+        if(direzione && posA > 0)
         {
-            DatiDiPosizione.posA = DatiDiPosizione.posA - 1;
-            if(DatiDiPosizione.posA < DatiDiPosizione.posG)
+            posA = posA - 1;
+            if(posA < posG)
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza + 1;
+                distanza = distanza + 1;
             }
             else
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza - 1;
+                distanza = distanza - 1;
             }
         }
-        else if(!direzione && DatiDiPosizione.posA < 200)
+        else if(!direzione && posA < 200)
         {
-            DatiDiPosizione.posA += 1;
-            if(DatiDiPosizione.posA > DatiDiPosizione.posG)
+            posA += 1;
+            if(posA > posG)
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza + 1;
+                distanza = distanza + 1;
             }
             else
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza - 1;
+                distanza = distanza - 1;
             }
         }
         spazio -= 1;
-        Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`; 
-        PosizioneNemico.textContent = `Posizione Nemico: ${DatiDiPosizione.posA}`; 
-        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;  
+        Boss.style.transform = `scale(${10/Math.max(distanza,10)})`; 
+        PosizioneNemico.textContent = `Posizione Nemico: ${posA}`; 
+        Distanza.textContent = `Distanza: ${distanza}`;  
         if(AttaccoNemico.style.color == "transparent")
         {
-            DatiDiPosizione.distanzaAG = DatiDiPosizione.distanza;
-            AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;   
+            distanzaAG = distanza;
+            AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
         }
-        AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);
-        this.AggiornaPosizione(direzione,DatiDiPosizione,spazio);
+        AggiornaMirino(ArmaPresa,distanza);
+        this.AggiornaPosizione(direzione,spazio);
         }
         else
         {
-            DatiDiPosizione.InMoto = false;
+            InMoto = false;
             return;
         }},1000/this.velocità);
     }
@@ -244,19 +244,19 @@ class Arma
     {
         return this._Rumori;
     }
-    Fuoco(DatiDiPosizione,NemicoScelto)
+    Fuoco(NemicoScelto)
     {
-        this.Spara(DatiDiPosizione,NemicoScelto);
+        this.Spara(NemicoScelto);
         Colpo = true;
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.Spara(DatiDiPosizione,NemicoScelto);},this.rateo + 100);
+            Spara = setInterval(() => {this.Spara(NemicoScelto);},this.rateo + 100);
         }
         else
         {   
             risparo = false;
             let cont = 0;
-            gap = setInterval(() => {if(!DatiDiPosizione.InPausa){cont += 100; if(cont >= this.rateo + 100){clearInterval(gap); risparo = true;}}},100);
+            gap = setInterval(() => {if(!InPausa){cont += 100; if(cont >= this.rateo + 100){clearInterval(gap); risparo = true;}}},100);
         }
     }
     Arresta()
@@ -271,7 +271,7 @@ class Arma
             }
         }
     }
-    Spara(DatiDiPosizione,NemicoScelto)
+    Spara(NemicoScelto)
     {    
         if(this.munizioni > 0)
         { 
@@ -279,7 +279,7 @@ class Arma
             this.munizioni -= 1;
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
             RumoriArma.textContent = `${this.Rumori[0]}`; 
-            Preso(this,DatiDiPosizione.distanza,NemicoScelto);
+            Preso(this,distanza,NemicoScelto);
             setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},100);
         }
         else
@@ -288,12 +288,12 @@ class Arma
             setTimeout(() => {PiuInfo.style.color = 'white';},1000);
         }
     }
-    Ricarica(DatiDiPosizione)
+    Ricarica()
     {   
         if(this.inventario > 0 && this.munizioni < this.maxmunizioni)
         {   
-            DatiDiPosizione.InCarica = true;
-            this.Step("Ricarica","_ricarica1",DatiDiPosizione);
+            InCarica = true;
+            this.Step("Ricarica","_ricarica1");
         }
         else if(this.inventario == 0)
         {
@@ -301,7 +301,7 @@ class Arma
             setTimeout(() => {PiuInfo.style.color = "white";},1000);
         }
     }
-    Step(a,p,DatiDiPosizione)
+    Step(a,p)
     {
         ArmaInCanna.classList.add('VaiGiù');
         ArmaInCanna.addEventListener('animationend',(event) => {if(event.animationName == "vaiGiù"){
@@ -315,11 +315,11 @@ class Arma
             RumoriArma.textContent = `${this.Rumori[p.split('a')[2]]}`;
             if(p.split('a')[2] == 1)
             {   
-                this.Step("Ricarica","_ricarica2",DatiDiPosizione);
+                this.Step("Ricarica","_ricarica2");
             }
             else
             {   
-                this.Step("Armi","",DatiDiPosizione);
+                this.Step("Armi","");
             }
         } 
         else
@@ -337,7 +337,7 @@ class Arma
             this.munizioni = this.maxmunizioni;
         }
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
-            DatiDiPosizione.InCarica = false;
+            InCarica = false;
         }
         }},{once: true,});
         }},{once: true,});
@@ -345,13 +345,13 @@ class Arma
 }
 class Mischia extends Arma
 {   
-    Spara(DatiDiPosizione,NemicoScelto)
+    Spara(NemicoScelto)
     {
         if(this.munizioni == 1)
         {
             ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
             this.munizioni = 0;
-            if(Preso(this,DatiDiPosizione.distanza,NemicoScelto))
+            if(Preso(this,distanza,NemicoScelto))
             {
                 ShotgunEquipaggiato.inventario += 3*ShotgunEquipaggiato.maxmunizioni;
                 AssaltoEquipaggiato.inventario += 3*AssaltoEquipaggiato.maxmunizioni;
@@ -396,173 +396,68 @@ class Personaggio
     {
         return this._velocità;
     }
-    Schiva(DatiDiPosizione)
+    Schiva()
     {
         PersonaggioGiocabile.classList.add('Schivata');
-        DatiDiPosizione.Schivando = true;
-        DatiDiPosizione.PuòSchivare = false;
+        Schivando = true;
+        PuòSchivare = false;
         PersonaggioGiocabile.addEventListener('animationend',() => {PersonaggioGiocabile.classList.remove('Schivata');
-        DatiDiPosizione.Schivando = false;
+        Schivando = false;
         let sec = 0;
-        let riprenditi = setInterval(() => {if(!DatiDiPosizione.InPausa){sec += 10; if(sec >= 600){DatiDiPosizione.PuòSchivare = true; clearInterval(riprenditi);}}},10);},{once: true,});
+        let riprenditi = setInterval(() => {if(!InPausa){sec += 10; if(sec >= 600){PuòSchivare = true; clearInterval(riprenditi);}}},10);},{once: true,});
     }
-    Muovi(verso,DatiDiPosizione)
+    Muovi(verso)
     {   
-        setTimeout(() => {if(DatiDiPosizione.Corri && DatiDiPosizione.posG <= 200 && DatiDiPosizione.posG >= 0 && !DatiDiPosizione.InPausa)
+        setTimeout(() => {if(Corri && posG <= 200 && posG >= 0 && !InPausa)
         {
-        if(verso && DatiDiPosizione.posG < 200)
+        if(verso && posG < 200)
         {
-            DatiDiPosizione.posG = DatiDiPosizione.posG + 1;
-            if(DatiDiPosizione.posG > DatiDiPosizione.posA)
+            posG = posG + 1;
+            if(posG > posA)
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza + 1;
-                DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG + 1;
+                distanza = distanza + 1;
+                distanzaAG = distanzaAG + 1;
             }
             else
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza - 1;
-                DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG - 1;
+                distanza = distanza - 1;
+                distanzaAG = distanzaAG - 1;
             }
         }
-        else if(!verso && DatiDiPosizione.posG > 0)
+        else if(!verso && posG > 0)
         {
-            DatiDiPosizione.posG = DatiDiPosizione.posG - 1;
-            if(DatiDiPosizione.posG < DatiDiPosizione.posA)
+            posG = posG - 1;
+            if(posG < posA)
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza + 1;
-                DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG + 1;
+                distanza = distanza + 1;
+                distanzaAG = distanzaAG + 1;
             }
             else
             {
-                DatiDiPosizione.distanza = DatiDiPosizione.distanza - 1;
-                DatiDiPosizione.distanzaAG = DatiDiPosizione.distanzaAG - 1;
+                distanza = distanza - 1;
+                distanzaAG = distanzaAG - 1;
             }
         }
-        Boss.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanza,10)})`;
-        AttaccoNemico.style.transform = `scale(${10/Math.max(DatiDiPosizione.distanzaAG,1)})`;
-        Segnaposto1.style.transform = `scale(${10/Math.max(DatiDiPosizione.posG,10)})`;
-        Segnaposto2.style.transform = `scale(${10/Math.max(200 - DatiDiPosizione.posG,10)})`;
-        PosizioneGiocatore.textContent = `Posizione Giocatore: ${DatiDiPosizione.posG}`; 
-        Distanza.textContent = `Distanza: ${DatiDiPosizione.distanza}`;
+        Boss.style.transform = `scale(${10/Math.max(distanza,10)})`;
+        AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+        Segnaposto1.style.transform = `scale(${10/Math.max(posG,10)})`;
+        Segnaposto2.style.transform = `scale(${10/Math.max(200 - posG,10)})`;
+        PosizioneGiocatore.textContent = `Posizione Giocatore: ${posG}`; 
+        Distanza.textContent = `Distanza: ${distanza}`;
         if(AttaccoNemico.style.color == "transparent")
         {
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${DatiDiPosizione.distanzaAG}`;
+            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
         }
         else
         {
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${DatiDiPosizione.distanzaAG}`;
+            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;
         }
-        AggiornaMirino(ArmaPresa,DatiDiPosizione.distanza);
-        this.Muovi(verso,DatiDiPosizione);
+        AggiornaMirino(ArmaPresa,distanza);
+        this.Muovi(verso);
     }
     else
     {   
         return;
     }},1000/this.velocità);
 }
-}
-class SaccoDiDati
-{
-    constructor(posG,posA,distanza,distanzaAG,Corri,Schivando,InMoto,AllAttacco,InPausa,InCarica,PuòSchivare)
-    {
-        this._posG = posG;
-        this._posA = posA;
-        this._distanza = distanza;
-        this._distanzaAG = distanzaAG;
-        this._Corri = Corri;
-        this.Schivando = Schivando;
-        this._PuòSchivare = PuòSchivare;
-        this._InMoto = InMoto;
-        this._AllAttacco = AllAttacco;
-        this._InPausa = InPausa;
-        this._InCarica = InCarica;
-    }
-    set posG(nposG)
-    {
-        this._posG = nposG;
-    }
-    get posG()
-    {
-        return this._posG;
-    }
-    set posA(nposA)
-    {
-        this._posA = nposA;
-    }
-    get posA()
-    {
-        return this._posA;
-    }
-    set distanza(ndistanza)
-    {
-        this._distanza = ndistanza;
-    }
-    get distanza()
-    {
-        return this._distanza;
-    }
-    set distanzaAG(ndistanzaAG)
-    {
-        this._distanzaAG = ndistanzaAG;
-    }
-    get distanzaAG()
-    {
-        return this._distanzaAG;
-    }
-    set Corri(agg)
-    {
-        this._Corri = agg;
-    }
-    get Corri()
-    {
-        return this._Corri;
-    }
-    set Schivando(Schivando)
-    {
-        this._Schivando = Schivando;
-    }
-    get Schivando()
-    {
-        return this._Schivando;
-    }
-    set PuòSchivare(p)
-    {
-        this._PuòSchivare = p;
-    }
-    get PuòSchivare()
-    {
-        return this._PuòSchivare;
-    }
-    set InMoto(InMoto)
-    {
-        this._InMoto = InMoto;
-    }
-    get InMoto()
-    {
-        return this._InMoto;
-    }
-    set AllAttacco(AllAttacco)
-    {
-        this._AllAttacco = AllAttacco;
-    }
-    get AllAttacco()
-    {
-        return this._AllAttacco;
-    }
-    set InPausa(stato)
-    {
-        this._InPausa = stato;
-    }
-    get InPausa()
-    {
-        return this._InPausa;
-    }
-    set InCarica(c)
-    {
-        this._InCarica = c;
-    }
-    get InCarica()
-    {
-        return this._InCarica;
-    }
 }

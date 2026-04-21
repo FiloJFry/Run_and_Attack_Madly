@@ -337,7 +337,7 @@ function Gioco()
             });
             document.addEventListener('click',() => {if(!InPausa){PausaRiprendi(NemicoScelto)}});
     Partita = setInterval(() => {
-        if(Math.random() < 0.5 && !AllAttacco)
+        if(Math.random()*Math.max(30,Math.min(distanza,60))/40 - Math.sqrt(Protagonista.vita)/(Math.trunc(Math.sqrt(Protagonista.vita))*10) < 0.5 && !AllAttacco)
         {
             NemicoScelto.AllAttacco(Protagonista); 
         }

@@ -143,8 +143,6 @@ function PausaRiprendi(NemicoScelto)
         BarraMischia.style.animationPlayState = "paused";
         PersonaggioGiocabile.style.animationPlayState = "paused";
         hp.style.animationPlayState = "paused";
-        Corri = false;
-        PersonaggioGiocabile.classList.remove('Scuoti');
         PannelloPausa.showModal();
     }
     else
@@ -170,7 +168,6 @@ function Fine(Partita,vittoria,NemicoScelto)
 {
         clearInterval(Partita);
         InPausa = true;
-        PersonaggioGiocabile.classList.remove("Scuoti");
         document.querySelector('#Info2').style.color = "transparent";
         PiuInfo.style.color = "transparent";
         BarraMischia.style.backgroundColor = "transparent";
@@ -315,7 +312,6 @@ function Gioco()
                     case ComandoMuoviSu:
                     case ComandoMuoviGiù:
                     Corri = false;
-                    PersonaggioGiocabile.classList.remove('Scuoti');
                     break;
 
                     case ComandoFuoco:
@@ -328,7 +324,6 @@ function Gioco()
                     case ComandoMuoviSu:
                     case ComandoMuoviGiù:
                     Corri = false;
-                    PersonaggioGiocabile.classList.remove('Scuoti');
                     break;
 
                     case ComandoFuoco:

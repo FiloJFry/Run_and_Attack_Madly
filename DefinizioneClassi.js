@@ -457,6 +457,8 @@ class Personaggio
     }
     else
     {   
+        PersonaggioGiocabile.classList.remove("Scuoti");
+        Corri = false;
         return;
     }},1000/this.velocità);
 }

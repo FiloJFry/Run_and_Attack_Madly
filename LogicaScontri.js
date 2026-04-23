@@ -170,6 +170,7 @@ function Fine(Partita,vittoria,NemicoScelto)
 {
         clearInterval(Partita);
         InPausa = true;
+        PersonaggioGiocabile.classList.remove("Scuoti");
         document.querySelector('#Info2').style.color = "transparent";
         PiuInfo.style.color = "transparent";
         BarraMischia.style.backgroundColor = "transparent";

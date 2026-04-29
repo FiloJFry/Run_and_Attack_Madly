@@ -33,8 +33,7 @@ select{
     font-size: 2vw;
     color: white;
 }
-#MostraLePosizioni{
-    background-color: red;
+.SiONo{
     border: solid white;
     color: white;
     width: 3vw;
@@ -43,12 +42,12 @@ select{
     align-items: center;
     justify-content: center;
 }
-#MostraISuoni{
-    background-color: green;
+#Filtro{
+    background-color: black;
     border: solid white;
     color: white;
-    width: 3vw;
-    height: 3vw;
+    height: 6vw;
+    width: 18vw;
     display: flex;
     align-items: center;
     justify-content: center;

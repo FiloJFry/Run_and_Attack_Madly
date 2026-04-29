@@ -192,3 +192,11 @@ h4{
 #BottoneOpzioni{
     background-color: orange;
 }
+.Filtro{
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+.MezzoFiltro{
+    filter: grayscale(50%);
+    -webkit-filter: grayscale(50%);
+}

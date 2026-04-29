@@ -46,6 +46,7 @@ let RumoriArma = document.querySelector('#Rumori');
 let FrasiNemico = document.querySelector('#Frasi');
 let PannelloPausa = document.querySelector('#Pausa');
 let PannelloConferma = document.querySelector('#Conferma');
+let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,PannelloConferma,PannelloPausa,PannelloOpzioni];
 function AggiornaMirino(ArmaPresa,distanza)
 {
     if(ArmaPresa.portata >= distanza && Mirino.style.color != "red")
@@ -353,5 +354,6 @@ function VaiVaiVai()
     difficoltà = Number(sessionStorage.getItem("Difficoltà"));
     AggiornaImpostazioni();
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
+    Filtra(filtro);
     Gioco();
 }

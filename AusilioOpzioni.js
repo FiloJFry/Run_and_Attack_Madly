@@ -1,11 +1,14 @@
 let MostraPosizioni = false;
 let MostraSuoni = true;
+let filtro = window.localStorage.getItem("Filtro");
 let PannelloOpzioni = document.querySelector('#Opzioni');
 let BottoneSalva = document.querySelector('#Salva');
 let BottonePosizioni = document.querySelector('#MostraLePosizioni');
 let BottoneSuoni = document.querySelector('#MostraISuoni');
+let BottoneFiltro = document.querySelector("#Filtro");
 let NomiComandi = ['ComandoFuoco','ComandoRicarica','ComandoMuoviSu','ComandoMuoviGiù','ComandoSchiva','Comando0','Comando1','Comando2','Comando3'];
 let PannelloTutorial = document.querySelector('#Tutorial');
+let FiltroColore = document.querySelector("#filtroColore");
 function AggiornaTesto(sComando)
 {
     if(window.localStorage.getItem(sComando) != null)
@@ -100,42 +103,72 @@ function ControllaComandi(Comandi)
     let setaccio = Comandi.filter(C => C != null);
     return new Set(setaccio).size === setaccio.length;
 }
-function AggiornaTesti()
-{   
-    NomiComandi.forEach(T => {AggiornaTesto(T);});
-    NomiComandi.forEach(I => {AggiornaImmagineImpostazioni(I);});
-    if(window.localStorage.getItem('MostraPosizioni') != null)
+function AlternaSiONo(bottone,sì)
+{
+    if(sì)
     {
-        BottonePosizioni.style.backgroundColor = 'green';
-        BottonePosizioni.textContent = '√';
-    }
-    if(window.localStorage.getItem('MostraSuoni') != null)
-    {
-        BottoneSuoni.style.backgroundColor = 'red';
-        BottoneSuoni.textContent = 'x';
-    }
-}
-function Salva()
-{   
-    let Comandi = NomiComandi.map(C => PrendiComando(C));
-    if(ControllaComandi(Comandi))
-    {   
-        Comandi.forEach((C,I) => {window.localStorage.setItem(NomiComandi[I],C)});
-        window.location.reload();
+        bottone.style.backgroundColor = "green";
+        bottone.textContent = "√";
     }
     else
-    {   
-        BottoneSalva.textContent = "Comandi non validi";
-        BottoneSalva.classList.add('Scuoti');
-        setTimeout(() => {BottoneSalva.textContent = "Salva"; BottoneSalva.classList.remove('Scuoti');},1000);
+    {
+        bottone.style.backgroundColor = "red";
+        bottone.textContent = "x";
     }
 }
-function Reset()
+function Filtra(filtro)
+{   
+    if(FiltroColore != null)
+    {
+    if(filtro != null)
+    {   
+        FiltroColore.innerHTML = `*{filter: grayscale(${100/filtro}%); -webkit-filter: grayscale(${100/filtro}%);}`;
+    }
+    else
+    {
+        FiltroColore.innerHTML = `*{filter: none; -webkit-filter: none;}`;
+    }
+    }
+    else
+    {
+    if(filtro == 1)
+    {
+        Elementi.forEach(E => {E.classList.remove("MezzoFiltro"); E.classList.add("Filtro");});
+    }
+    else if(filtro == 2)
+    {
+        Elementi.forEach(E => {E.classList.remove("Filtro"); E.classList.add("MezzoFiltro");});
+    }
+    else
+    {
+        Elementi.forEach(E => {E.classList.remove("Filtro"); E.classList.remove("MezzoFiltro");});
+    }
+    }
+}
+function AggiornaBottoniImpostazioni()
 {
-    NomiComandi.forEach(N => {window.localStorage.removeItem(N);});
-    window.localStorage.removeItem("MostraPosizioni");
-    window.localStorage.removeItem("MostraSuoni");
-    window.location.reload();
+    AlternaSiONo(BottonePosizioni,MostraPosizioni);
+    AlternaSiONo(BottoneSuoni,MostraSuoni);
+    if(window.localStorage.getItem("Filtro") != null)
+    {
+        if(window.localStorage.getItem("Filtro") == 1)
+        {
+            BottoneFiltro.textContent = "Bianco e nero";
+        }
+        else
+        {
+            BottoneFiltro.textContent = "Una via di mezzo...";
+        }
+    }
+}
+function AggiornaTesti()
+{   
+    if(window.location.href == "./SchermaatOpzioni.html")
+    {
+        NomiComandi.forEach(T => {AggiornaTesto(T);});
+    }
+    NomiComandi.forEach(I => {AggiornaImmagineImpostazioni(I);});
+    AggiornaBottoniImpostazioni();
 }
 function AggiornaImpostazioni()
 {   
@@ -214,36 +247,59 @@ function AggiornaImpostazioni()
     if(window.localStorage.getItem("MostraPosizioni") != null)
     {
         document.querySelector('#Info2').style.color = "white";
-        BottonePosizioni.style.backgroundColor = 'green';
-        BottonePosizioni.textContent = '√';
     }
     else
     {
         document.querySelector('#Info2').style.color = "transparent";
-        BottonePosizioni.style.backgroundColor = 'red';
-        BottonePosizioni.textContent = 'x';
     }
     if(window.localStorage.getItem("MostraSuoni") != null)
     {
         RumoriArma.style.color = "transparent";
-        BottoneSuoni.style.backgroundColor = 'red';
-        BottoneSuoni.textContent = 'x';
     }
     else
     {
         RumoriArma.style.color = "white";
-        BottoneSuoni.style.backgroundColor = 'green';
-        BottoneSuoni.textContent = '√';
     }
+    AggiornaBottoniImpostazioni();
 }
-function SalvaOra()
+function Salva()
 {   
     let Comandi = NomiComandi.map(C => PrendiComando(C));
     if(ControllaComandi(Comandi))
     {   
         Comandi.forEach((C,I) => {window.localStorage.setItem(NomiComandi[I],C)});
-        AggiornaImpostazioni();
-        NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
+        if(MostraPosizioni)
+        {
+            window.localStorage.setItem("MostraPosizioni",MostraPosizioni);
+        }
+        else
+        {
+            window.localStorage.removeItem("MostraPosizioni");
+        }
+        if(!MostraSuoni)
+        {
+            window.localStorage.setItem("MostraSuoni",MostraSuoni);
+        }
+        else
+        {
+            window.localStorage.removeItem("MostraSuoni");
+        }
+        if(filtro != null)
+        {
+            window.localStorage.setItem("Filtro",filtro);
+        }
+        else
+        {
+            window.localStorage.removeItem("Filtro");
+        }
+        if(window.location.href == "CampoDiBattaglia.html")
+        {
+            AggiornaImpostazioni();
+        }
+        else
+        {
+            AggiornaTesti();
+        }
         PannelloOpzioni.close();
     }
     else
@@ -253,12 +309,19 @@ function SalvaOra()
         setTimeout(() => {BottoneSalva.textContent = "Salva"; BottoneSalva.classList.remove('animated','Scuoti');},1000);
     }
 }
-function ResetOra()
+function Reset()
 {
     NomiComandi.forEach(N => {window.localStorage.removeItem(N);});
     window.localStorage.removeItem("MostraPosizioni");
     window.localStorage.removeItem("MostraSuoni");
-    AggiornaImpostazioni();
-    NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
+    window.localStorage.removeItem("Filtro");
+    if(window.location.href == "CampoDiBattaglia.html")
+    {
+        AggiornaImpostazioni();
+    }
+    else
+    {
+        AggiornaTesti();
+    }
     PannelloOpzioni.close();
 }

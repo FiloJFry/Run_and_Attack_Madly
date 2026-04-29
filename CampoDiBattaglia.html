@@ -8,7 +8,7 @@
         <link rel = "stylesheet" type="text/css" href = "MenùOpzioni.css" />
         <link rel="stylesheet" href="Animazioni.css">
     </head>
-    <body onload = "VaiVaiVai()">
+    <body onload = "VaiVaiVai();">
         <div class = "Centratore">
             <div id = "PienBarra"></div>
             <div id = "Barra"></div>
@@ -167,15 +167,15 @@
                     </select>
                 </div>
                 <b>Mostra dati di posizione</b>
-                <div class = "Riga">Aggiorna e mostra in tempo reale la tua posizione,quella del nemico e la distanza che separa te da lui e dal suo attacco
-                <button type = "button" id = "MostraLePosizioni"  onclick = "if(MostraPosizioni){MostraPosizioni = false;window.localStorage.removeItem('MostraPosizioni');BottonePosizioni.style.backgroundColor = 'red';BottonePosizioni.textContent = 'x';}
-                else{MostraPosizioni = true;window.localStorage.setItem('MostraPosizioni',`${MostraPosizioni}`);BottonePosizioni.style.backgroundColor = 'green';BottonePosizioni.textContent = '√';}">x</button></div>
+                <button type = "button" id = "MostraLePosizioni" class = "SiONo" onclick = "if(MostraPosizioni){MostraPosizioni = false;}else{MostraPosizioni = true;} AlternaSiONo(BottonePosizioni,MostraPosizioni);"></button></div>
                 <b>Rumori delle armi</b>
-                <div class = "Riga"><button type = "button" id = "MostraISuoni"  onclick = "if(!MostraSuoni){MostraSuoni = true;window.localStorage.removeItem('MostraSuoni');BottoneSuoni.style.backgroundColor = 'green';BottoneSuoni.textContent = '√';}
-                else{MostraSuoni = false;window.localStorage.setItem('MostraSuoni',`${MostraSuoni}`);BottoneSuoni.style.backgroundColor = 'red';BottoneSuoni.textContent = 'x';}">√</button></div>
+                <div class = "Riga"><button type = "button" id = "MostraISuoni" class = "SiONo"  onclick = "if(!MostraSuoni){MostraSuoni = true;} else{MostraSuoni = false;} AlternaSiONo(BottoneSuoni,MostraSuoni);"></button></div>
+                <b>Colori</b>
+                <div class = "Riga"><button type = "button" id = "Filtro" onclick = "if(filtro == null){filtro = 1; BottoneFiltro.textContent = 'Bianco e nero';} 
+                else if(filtro == 1){filtro ++; BottoneFiltro.textContent = 'Una via di mezzo...';} else if(filtro == 2){filtro = null; BottoneFiltro.textContent = 'Predefinito';} Filtra(filtro);">Predefinito</button></div>
                 <div class = MiniCentratore>
-                <button type="button" id="Salva" onclick="SalvaOra()">Salva</button>
-                <button type="button" id="Reset" onclick="ResetOra()">Ripristina predefiniti</button>
+                <button type="button" id="Salva" onclick="Salva()">Salva</button>
+                <button type="button" id="Reset" onclick="Reset()">Ripristina predefiniti</button>
             </div>
             </div>
         </dialog>

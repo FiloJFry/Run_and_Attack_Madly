@@ -160,6 +160,10 @@ function AggiornaBottoniImpostazioni()
             BottoneFiltro.textContent = "Flashback";
         }
     }
+    else
+    {
+        BottoneFiltro.textContent = "Predefinito";
+    }
 }
 function AggiornaTesti()
 {   

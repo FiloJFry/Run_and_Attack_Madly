@@ -1,5 +1,5 @@
-let MostraPosizioni = false;
-let MostraSuoni = true;
+let MostraPosizioni = window.localStorage.getItem("MostraPosizioni") != null;
+let MostraSuoni = window.localStorage.getItem("MostraSuoni") == null;
 let filtro = window.localStorage.getItem("Filtro");
 let PannelloOpzioni = document.querySelector('#Opzioni');
 let BottoneSalva = document.querySelector('#Salva');
@@ -157,13 +157,13 @@ function AggiornaBottoniImpostazioni()
         }
         else
         {
-            BottoneFiltro.textContent = "Una via di mezzo...";
+            BottoneFiltro.textContent = "Flashback";
         }
     }
 }
 function AggiornaTesti()
 {   
-    if(window.location.href == "./SchermaatOpzioni.html")
+    if(FiltroColore != null)
     {
         NomiComandi.forEach(T => {AggiornaTesto(T);});
     }
@@ -292,7 +292,7 @@ function Salva()
         {
             window.localStorage.removeItem("Filtro");
         }
-        if(window.location.href == "CampoDiBattaglia.html")
+        if(FiltroColore == null)
         {
             AggiornaImpostazioni();
         }
@@ -315,7 +315,7 @@ function Reset()
     window.localStorage.removeItem("MostraPosizioni");
     window.localStorage.removeItem("MostraSuoni");
     window.localStorage.removeItem("Filtro");
-    if(window.location.href == "CampoDiBattaglia.html")
+    if(FiltroColore == null)
     {
         AggiornaImpostazioni();
     }

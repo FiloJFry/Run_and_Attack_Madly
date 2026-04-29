@@ -315,6 +315,8 @@ function Reset()
     window.localStorage.removeItem("MostraPosizioni");
     window.localStorage.removeItem("MostraSuoni");
     window.localStorage.removeItem("Filtro");
+    filtro = null;
+    Filtra(filtro);
     if(FiltroColore == null)
     {
         AggiornaImpostazioni();

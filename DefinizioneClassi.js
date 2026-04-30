@@ -258,7 +258,7 @@ class Arma
         Colpo = true;
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.Spara(NemicoScelto);},this.rateo + 100);
+            Spara = setInterval(() => {this.Spara(NemicoScelto);},this.rateo + 20);
         }
         else
         {   
@@ -288,7 +288,7 @@ class Arma
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
             RumoriArma.textContent = `${this.Rumori[0]}`; 
             Preso(this,distanza,NemicoScelto);
-            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},100);
+            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},20);
         }
         else
         {   

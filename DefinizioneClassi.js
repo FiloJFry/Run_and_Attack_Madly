@@ -293,7 +293,7 @@ class Arma
         else
         {   
             PiuInfo.style.color = 'red';
-            setTimeout(() => {PiuInfo.style.color = 'white';},1000);
+            setTimeout(() => {if(Giocando){PiuInfo.style.color = 'white';}},1000);
         }
     }
     Ricarica()
@@ -306,7 +306,7 @@ class Arma
         else if(this.inventario == 0)
         {
             PiuInfo.style.color = "red";
-            setTimeout(() => {PiuInfo.style.color = "white";},1000);
+            setTimeout(() => {if(Giocando){PiuInfo.style.color = "white";}},1000);
         }
     }
     Step(a,p)
@@ -378,7 +378,7 @@ class Mischia extends Arma
         else
         {
             document.querySelector('#PienBarraMischia').style.backgroundColor = 'red';
-            setTimeout(() => {document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';},1000);
+            setTimeout(() => {if(Giocando){document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';}},1000);
         }
         this.Ricarica();
     }

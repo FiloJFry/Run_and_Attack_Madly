@@ -248,7 +248,7 @@ function AggiornaImpostazioni()
     {
         Comando3 = "3";
     }
-    if(window.localStorage.getItem("MostraPosizioni") != null)
+    if(window.localStorage.getItem("MostraPosizioni") != null && Giocando)
     {
         document.querySelector('#Info2').style.color = "white";
     }
@@ -260,7 +260,7 @@ function AggiornaImpostazioni()
     {
         RumoriArma.style.color = "transparent";
     }
-    else
+    else if(Giocando)
     {
         RumoriArma.style.color = "white";
     }

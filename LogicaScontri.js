@@ -50,11 +50,11 @@ let PannelloConferma = document.querySelector('#Conferma');
 let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,PannelloConferma,PannelloPausa,PannelloOpzioni];
 function AggiornaMirino(ArmaPresa,distanza)
 {
-    if(ArmaPresa.portata >= distanza && Mirino.style.color != "red")
+    if(ArmaPresa.portata >= distanza && Mirino.style.color != "red" && Giocando)
     {
         Mirino.style.color = 'red';
     }
-    else if(ArmaPresa.portata < distanza && Mirino.style.color != "white")
+    else if(ArmaPresa.portata < distanza && Mirino.style.color != "white" && Giocando)
     {
         Mirino.style.color = 'white';
     }

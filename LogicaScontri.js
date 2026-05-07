@@ -68,7 +68,6 @@ function Riprova()
     distanza = 100;
     distanzaAG = 100;
     Giocando = true;
-    InPausa = false;
     risparo = true;
     VaiVaiVai();
 }
@@ -388,7 +387,6 @@ function VaiVaiVai()
     else
     {
         PannelloConferma.close();
-        PannelloPausa.close();
     }
     Gioco();
 }

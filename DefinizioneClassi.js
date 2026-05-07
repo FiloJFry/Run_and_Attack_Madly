@@ -258,13 +258,13 @@ class Arma
         Colpo = true;
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.Spara(NemicoScelto);},this.rateo + 20);
+            Spara = setInterval(() => {this.Spara(NemicoScelto);},this.rateo + 25);
         }
         else
         {   
             risparo = false;
             let cont = 0;
-            gap = setInterval(() => {if(!InPausa){cont += 100; if(cont >= this.rateo + 100){clearInterval(gap); risparo = true;}}},100);
+            gap = setInterval(() => {if(!InPausa){cont += 100; if(cont >= this.rateo + 25){clearInterval(gap); risparo = true;}}},100);
         }
     }
     Arresta()
@@ -288,7 +288,7 @@ class Arma
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
             RumoriArma.textContent = `${this.Rumori[0]}`; 
             Preso(this,distanza,NemicoScelto);
-            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},20);
+            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},25);
         }
         else
         {   

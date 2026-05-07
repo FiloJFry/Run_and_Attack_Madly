@@ -354,6 +354,10 @@ function VaiVaiVai()
     Armi.forEach(A => {if(sessionStorage.getItem("ShotgunEquipaggiato") == A.nome){ShotgunEquipaggiato = A;} else if (sessionStorage.getItem("AssaltoEquipaggiato") == A.nome){AssaltoEquipaggiato = A;} else if (sessionStorage.getItem("CecchinoEquipaggiato") == A.nome){CecchinoEquipaggiato = A;}});
     Mischie.forEach(M => {if(sessionStorage.getItem("MischiaEquipaggiata") == M.nome){MischiaEquipaggiata = M;}})
     difficoltà = Number(sessionStorage.getItem("Difficoltà"));
+    new Image().src = `./Immagini/Armi/${MischiaEquipaggiata.nome}_attaccando.jpg`;
+    new Image().src = `./Immagini/Armi/${ShotgunEquipaggiato.nome}_attaccando.jpg`;
+    new Image().src = `./Immagini/Armi/${AssaltoEquipaggiato.nome}_attaccando.jpg`;
+    new Image().src = `./Immagini/Armi/${CecchinoEquipaggiato.nome}_attaccando.jpg`;
     AggiornaImpostazioni();
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
     Filtra(filtro);

@@ -385,5 +385,10 @@ function VaiVaiVai()
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
     Filtra(filtro);
     }
+    else
+    {
+        PannelloConferma.close();
+        PannelloPausa.close();
+    }
     Gioco();
 }

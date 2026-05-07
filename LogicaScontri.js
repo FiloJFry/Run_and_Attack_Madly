@@ -9,7 +9,7 @@ let InMoto = false;
 let AllAttacco = false;
 let InPausa = false;
 let InCarica = false;
-let RimaniQui = true;
+let RimaniQui = false;
 let stavaattaccando;
 let stavamuovendosi; 
 let ComandoFuoco = 'Enter';
@@ -48,6 +48,30 @@ let FrasiNemico = document.querySelector('#Frasi');
 let PannelloPausa = document.querySelector('#Pausa');
 let PannelloConferma = document.querySelector('#Conferma');
 let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,PannelloConferma,PannelloPausa,PannelloOpzioni];
+function ScaricaImmaginiArmi(a)
+{   
+    new Image().src = `./Immagini/Armi/${a}.jpg`;
+    new Image().src = `./Immagini/Armi/${a}_attaccando.jpg`;
+    new Image().src = `./Immagini/Armi/${a}_ricarica1.jpg`;
+    new Image().src = `./Immagini/Armi/${a}_ricarica2.jpg`;
+}
+function ScaricaImmagini(m,s,a,c,n)
+{
+    [m,s,a,c].forEach(A => {ScaricaImmaginiArmi(A)});
+    new Image().src = `./Immagini/Nemici/${n}.jpg`;
+    new Image().src = `./Immagini/Nemici/${n}_attaccando.jpg`;
+}
+function Riprova()
+{
+    posG = 0;
+    posA = 100;
+    distanza = 100;
+    distanzaAG = 100;
+    Giocando = true;
+    InPausa = false;
+    risparo = true;
+    VaiVaiVai();
+}
 function AggiornaMirino(ArmaPresa,distanza)
 {
     if(ArmaPresa.portata >= distanza && Mirino.style.color != "red" && Giocando)
@@ -349,17 +373,17 @@ function Gioco()
     },4000/difficoltà);
 }
 function VaiVaiVai()
-{
+{   
+    if(!RimaniQui)
+    {
     Nemici.forEach(N => {if(sessionStorage.getItem("Nemico scelto") == N.nome){NemicoScelto = N;}});
     Armi.forEach(A => {if(sessionStorage.getItem("ShotgunEquipaggiato") == A.nome){ShotgunEquipaggiato = A;} else if (sessionStorage.getItem("AssaltoEquipaggiato") == A.nome){AssaltoEquipaggiato = A;} else if (sessionStorage.getItem("CecchinoEquipaggiato") == A.nome){CecchinoEquipaggiato = A;}});
     Mischie.forEach(M => {if(sessionStorage.getItem("MischiaEquipaggiata") == M.nome){MischiaEquipaggiata = M;}})
     difficoltà = Number(sessionStorage.getItem("Difficoltà"));
-    new Image().src = `./Immagini/Armi/${MischiaEquipaggiata.nome}_attaccando.jpg`;
-    new Image().src = `./Immagini/Armi/${ShotgunEquipaggiato.nome}_attaccando.jpg`;
-    new Image().src = `./Immagini/Armi/${AssaltoEquipaggiato.nome}_attaccando.jpg`;
-    new Image().src = `./Immagini/Armi/${CecchinoEquipaggiato.nome}_attaccando.jpg`;
+    ScaricaImmagini(MischiaEquipaggiata.nome,ShotgunEquipaggiato.nome,AssaltoEquipaggiato.nome,CecchinoEquipaggiato.nome,NemicoScelto.nome);
     AggiornaImpostazioni();
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
     Filtra(filtro);
+    }
     Gioco();
 }

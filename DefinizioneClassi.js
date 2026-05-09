@@ -62,7 +62,7 @@ class Nemico
     {
         return this._Frasi;
     }
-    AllAttacco(Protagonista)
+    AllAttacco()
     {   
         if(!InPausa)
         {
@@ -72,10 +72,10 @@ class Nemico
             AttaccoNemico.style.color = this.coloreAttacco;
             let t = 0;
             let dice = setInterval(() => {if(!InPausa){t += 100; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); if(Giocando){FrasiNemico.textContent = "";} clearInterval(dice)}}},100);
-            this.Attacco(Protagonista);
+            this.Attacco();
         }
     }
-    Attacco(Protagonista)
+    Attacco()
     {   
         setTimeout(() => {
         if(distanzaAG > 0 && !InPausa)
@@ -83,13 +83,17 @@ class Nemico
             distanzaAG = distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
-            this.Attacco(Protagonista);
+            this.Attacco();
         }
-        else
+        else if(distanzaAG == 0)
         {   
             Colpito(Protagonista);
             AllAttacco = false;
             return;
+        }
+        else
+        {
+            this.Attacco();
         }},1000/this.velocità);
     }
     Moto()
@@ -149,10 +153,14 @@ class Nemico
         this.AggiornaPosizione(direzione,spazio);
         }
         }
-        else
+        else if(spazio == 0)
         {
             InMoto = false;
             return;
+        }
+        else
+        {
+            this.AggiornaPosizione(direzione,spazio);
         }},1000/this.velocità);
     }
 
@@ -252,19 +260,19 @@ class Arma
     {
         return this._Rumori;
     }
-    Fuoco(NemicoScelto)
+    Fuoco()
     {
-        this.Spara(NemicoScelto);
+        this.Spara();
         Colpo = true;
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.Spara(NemicoScelto);},this.rateo + 20);
+            Spara = setInterval(() => {this.Spara();},this.rateo + 20);
         }
         else
         {   
             risparo = false;
             let cont = 0;
-            gap = setInterval(() => {if(!InPausa){cont += 100; if(cont >= this.rateo + 20){clearInterval(gap); risparo = true;}}},100);
+            gap = setInterval(() => {if(!InPausa){cont += 100; if(cont >= this.rateo + 100){clearInterval(gap); risparo = true;}}},100);
         }
     }
     Arresta()
@@ -279,7 +287,7 @@ class Arma
             }
         }
     }
-    Spara(NemicoScelto)
+    Spara()
     {    
         if(this.munizioni > 0)
         { 
@@ -287,7 +295,7 @@ class Arma
             this.munizioni -= 1;
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
             RumoriArma.textContent = `${this.Rumori[0]}`; 
-            Preso(this,distanza,NemicoScelto);
+            Preso();
             setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},20);
         }
         else
@@ -361,13 +369,13 @@ class Mischia extends Arma
         super(nome,danni,portata,munizioni,rateo,altorateo,mirino,Rumori);
         this._inventario = 0;
     }
-    Spara(NemicoScelto)
+    Spara()
     {
         if(this.munizioni == 1)
         {
             ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
             this.munizioni = 0;
-            if(Preso(this,distanza,NemicoScelto))
+            if(Preso())
             {
                 ShotgunEquipaggiato.inventario += 3*ShotgunEquipaggiato.maxmunizioni;
                 AssaltoEquipaggiato.inventario += 3*AssaltoEquipaggiato.maxmunizioni;

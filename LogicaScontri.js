@@ -46,6 +46,19 @@ let FrasiNemico = document.querySelector('#Frasi');
 let PannelloPausa = document.querySelector('#Pausa');
 let PannelloConferma = document.querySelector('#Conferma');
 let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,PannelloConferma,PannelloPausa,PannelloOpzioni];
+function ScaricaImmaginiArma(a)
+{
+    new Image().src = `./Immagini/Armi/${a}.jpg`;
+    new Image().src = `./Immagini/Armi/${a}_attaccando.jpg`;
+    new Image().src = `./Immagini/Armi/${a}_ricarica1.jpg`;
+    new Image().src = `./Immagini/Armi/${a}_ricarica2.jpg`;
+}
+function ScaricaImmagini(m,s,a,c,n)
+{
+    [m,s,a,c].forEach(A => {ScaricaImmaginiArma(A)});
+    new Image().src = `./Immagini/Nemici/${n}.jpg`;
+    new Image().src = `./Immagini/Nemici/${n}_attaccando.jpg`;
+}
 function AggiornaMirino()
 {
     if(ArmaPresa.portata >= distanza && Mirino.style.color != "red")
@@ -343,6 +356,7 @@ function VaiVaiVai()
     difficoltà = Number(sessionStorage.getItem("Difficoltà"));
     AggiornaImpostazioni();
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
+    ScaricaImmagini(MischiaEquipaggiata.nome,ShotgunEquipaggiato.nome,AssaltoEquipaggiato.nome,CecchinoEquipaggiato.nome,NemicoScelto.nome);
     Filtra(filtro);
     Gioco();
 }

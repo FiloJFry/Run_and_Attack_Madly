@@ -128,9 +128,7 @@ function Preso()
     }
 }
 function Colpito()
-{
-    if(distanzaAG <= 0)
-    {   
+{ 
         if(!Schivando)
         {
             Protagonista.vita -= 1;
@@ -145,7 +143,7 @@ function Colpito()
         distanzaAG = distanza;
         AttaccoNemico.style.color = "transparent";
         AttaccoNemico.style.transform = `scale(${Math.max(10/distanzaAG,1)})`;
-    }
+        DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
 }
 function PausaRiprendi()
 {   

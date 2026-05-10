@@ -85,7 +85,7 @@ class Nemico
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
             this.Attacco();
         }
-        else if(distanzaAG == 0)
+        else if(distanzaAG <= 0)
         {   
             Colpito(Protagonista);
             AllAttacco = false;

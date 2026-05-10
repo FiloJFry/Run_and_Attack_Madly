@@ -87,7 +87,7 @@ class Nemico
         }
         else if(distanzaAG <= 0)
         {   
-            Colpito(Protagonista);
+            Colpito();
             AllAttacco = false;
             return;
         }

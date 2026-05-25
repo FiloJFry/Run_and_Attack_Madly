@@ -213,7 +213,7 @@ function Gioco()
             if(ArmaPresa != MischiaEquipaggiata && !InCarica)
             {
             risparo = true;
-            Colpo = CambioArma(MischiaEquipaggiata);
+            Colpo = Protagonista.CambioArma(MischiaEquipaggiata);
             ArmaPresa = MischiaEquipaggiata;
             }
             break;
@@ -222,7 +222,7 @@ function Gioco()
                 if(ArmaPresa != ShotgunEquipaggiato && !InCarica)
                 {
             risparo = true;
-            Colpo = CambioArma(ShotgunEquipaggiato);
+            Colpo = Protagonista.CambioArma(ShotgunEquipaggiato);
             ArmaPresa = ShotgunEquipaggiato;
             }
             break;
@@ -231,7 +231,7 @@ function Gioco()
                 if(ArmaPresa != AssaltoEquipaggiato && !InCarica)
                 {
             risparo = true;
-            Colpo = CambioArma(AssaltoEquipaggiato);
+            Colpo = Protagonista.CambioArma(AssaltoEquipaggiato);
             ArmaPresa = AssaltoEquipaggiato;
             }
             break;
@@ -240,7 +240,7 @@ function Gioco()
                 if(ArmaPresa != CecchinoEquipaggiato && !InCarica)
                 {
             risparo = true;
-            Colpo = CambioArma(CecchinoEquipaggiato);
+            Colpo = Protagonista.CambioArma(CecchinoEquipaggiato);
             ArmaPresa = CecchinoEquipaggiato;
             }
             break;

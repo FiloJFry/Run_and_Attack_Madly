@@ -165,21 +165,16 @@ class Nemico
     }
 
 }
-class Arma
+class Mischia
 {   
- constructor(nome,danni,portata,munizioni,rateo,velocità,altorateo,mirino,Rumori)
+    constructor(nome,danni,portata,mirino,Rumori)
     {
         this._nome = nome;
         this._danni = danni;
         this._portata = portata;
-        this._munizioni = munizioni;
-        this._maxmunizioni = munizioni;
-        this._inventario = 4*munizioni;
-        this._rateo = rateo;
-        this._altorateo = altorateo;
-        this._velocità = velocità;
         this._mirino = mirino;
         this._Rumori = Rumori;
+        this._munizioni = 1;
     }
     set nome(name)
     {   
@@ -212,6 +207,61 @@ class Arma
     get munizioni()
     {
         return this._munizioni;
+    }
+    set mirino(testo)
+    {
+        this._mirino = testo;
+    }
+    get mirino()
+    {
+        return this._mirino;
+    }
+    set Rumori(suoni)
+    {
+        this._Rumori = suoni; 
+    }
+    get Rumori()
+    {
+        return this._Rumori;
+    }
+    Fuoco()
+    {
+        if(this.munizioni == 1)
+        {
+            ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
+            this.munizioni = 0;
+            if(Preso())
+            {
+                ShotgunEquipaggiato.inventario += 3*ShotgunEquipaggiato.maxmunizioni;
+                AssaltoEquipaggiato.inventario += 3*AssaltoEquipaggiato.maxmunizioni;
+                CecchinoEquipaggiato.inventario += 3*CecchinoEquipaggiato.maxmunizioni;
+            }
+            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`);},100);
+        }
+        else
+        {
+            document.querySelector('#PienBarraMischia').style.backgroundColor = 'red';
+            setTimeout(() => {if(Giocando){document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';}},1000);
+        }
+        this.Ricarica();
+    }
+    Ricarica()
+    {   
+        BarraMischia.classList.add('BarraInCarica');
+        BarraMischia.addEventListener('animationend',() => {this.munizioni = 1; BarraMischia.classList.remove('BarraInCarica');},{once: true,});
+    }
+}
+class Arma extends Mischia
+{   
+ constructor(nome,danni,portata,munizioni,rateo,velocità,altorateo,mirino,Rumori)
+    {   
+        super(nome,danni,portata,mirino,Rumori)
+        this._munizioni = munizioni;
+        this._maxmunizioni = munizioni;
+        this._inventario = 4*munizioni;
+        this._rateo = rateo;
+        this._altorateo = altorateo;
+        this._velocità = velocità;
     }
     set inventario(ammo)
     {
@@ -253,29 +303,13 @@ class Arma
     {
         return this._maxmunizioni;
     }
-    set mirino(testo)
+    Fuoco()
     {
-        this._mirino = testo;
-    }
-    get mirino()
-    {
-        return this._mirino;
-    }
-    set Rumori(suoni)
-    {
-        this._Rumori = suoni; 
-    }
-    get Rumori()
-    {
-        return this._Rumori;
-    }
-    Fuoco(NemicoScelto)
-    {
-        this.Spara(NemicoScelto);
+        this.Spara();
         Colpo = true;
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.Spara(NemicoScelto);},ArmaPresa.rateo + 20);
+            Spara = setInterval(() => {this.Spara();},ArmaPresa.rateo + 20);
         }
         else if(risparo)
         {   
@@ -296,7 +330,7 @@ class Arma
             }
         }
     }
-    Spara(NemicoScelto)
+    Spara()
     {    
         if(this.munizioni > 0)
         { 
@@ -369,50 +403,6 @@ class Arma
         }},{once: true,});
         }},{once: true,});
     }
-    }
-}
-class Mischia extends Arma
-{   
-    constructor(nome,danni,portata,munizioni,rateo,velocità,altorateo,mirino,Rumori)
-    {
-        super(nome,danni,portata,munizioni,rateo,velocità,altorateo,mirino,Rumori);
-        this._munizioni = 1;
-        this._inventario = 0;
-        this._rateo = 45000;
-        this._velocità = Infinity;
-        this._altorateo = false;
-        this._mirino = munizioni;
-        this._Rumori = rateo;
-    }
-    Spara()
-    {
-        if(this.munizioni == 1)
-        {
-            ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
-            this.munizioni = 0;
-            if(Preso())
-            {
-                ShotgunEquipaggiato.inventario += 3*ShotgunEquipaggiato.maxmunizioni;
-                AssaltoEquipaggiato.inventario += 3*AssaltoEquipaggiato.maxmunizioni;
-                CecchinoEquipaggiato.inventario += 3*CecchinoEquipaggiato.maxmunizioni;
-            }
-            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`);},100);
-        }
-        else
-        {
-            document.querySelector('#PienBarraMischia').style.backgroundColor = 'red';
-            setTimeout(() => {if(Giocando){document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';}},1000);
-        }
-        this.Ricarica();
-    }
-    Ricarica()
-    {   
-        BarraMischia.classList.add('BarraInCarica');
-        BarraMischia.addEventListener('animationend',() => {this.munizioni = 1; BarraMischia.classList.remove('BarraInCarica');},{once: true,});
-    }
-    Step()
-    {
-        return;
     }
 }
 class Personaggio

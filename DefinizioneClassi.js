@@ -502,5 +502,31 @@ class Personaggio
         Corri = false;
         return;
     }},1000/this.velocità);
+    }
+    
+    CambioArma(ArmaPresa)
+{
+    ArmaInCanna.classList.add('VaiGiù');
+    Pulisci();
+    InCarica = true;
+    ArmaInCanna.addEventListener('animationend',(event) => {if(event.animationName == "vaiGiù") {{ArmaInCanna.classList.remove('VaiGiù');
+    ArmaInCanna.classList.add('TornaSu');
+    ArmaInCanna.setAttribute('src',`./Immagini/Armi/${ArmaPresa.nome}.jpg`);
+    ArmaInCanna.addEventListener('animationend',(event) => {if(event.animationName == "tornaSu"){
+    ArmaInCanna.classList.remove('TornaSu');
+    Mirino.innerHTML = ArmaPresa.mirino;
+    if(ArmaPresa != MischiaEquipaggiata)
+    {
+        PiuInfo.textContent = `${ArmaPresa.munizioni}|${ArmaPresa.inventario}`;
+    } 
+    else
+    {
+        PiuInfo.textContent = "";
+    }
+    InCarica = false;}
+    },{once: true,});
+    }}},{once: true,});
+    return false;
+}
 }
 }

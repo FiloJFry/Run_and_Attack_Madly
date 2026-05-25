@@ -515,7 +515,7 @@ class Personaggio
     ArmaInCanna.addEventListener('animationend',(event) => {if(event.animationName == "tornaSu"){
     ArmaInCanna.classList.remove('TornaSu');
     Mirino.innerHTML = ArmaPresa.mirino;
-    if(ArmaPresa.velocità != null)
+    if(ArmaPresa.rateo != null)
     {
         PiuInfo.textContent = `${ArmaPresa.munizioni}|${ArmaPresa.inventario}`;
     } 
@@ -527,6 +527,5 @@ class Personaggio
     },{once: true,});
     }}},{once: true,});
     return false;
-}
 }
 }

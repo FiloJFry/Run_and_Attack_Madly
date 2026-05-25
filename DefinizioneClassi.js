@@ -255,7 +255,7 @@ class Arma extends Mischia
 {   
  constructor(nome,danni,portata,munizioni,rateo,velocità,altorateo,mirino,Rumori)
     {   
-        super(nome,danni,portata,mirino,Rumori)
+        super(nome,danni,portata,mirino,Rumori);
         this._munizioni = munizioni;
         this._maxmunizioni = munizioni;
         this._inventario = 4*munizioni;

@@ -225,7 +225,8 @@ class Mischia
         return this._Rumori;
     }
     Fuoco()
-    {
+    {   
+        Colpo = true;
         if(this.munizioni == 1)
         {
             ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
@@ -244,6 +245,10 @@ class Mischia
             setTimeout(() => {if(Giocando){document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';}},1000);
         }
         this.Ricarica();
+    }
+    Arresta()
+    {
+        Colpo = false;
     }
     Ricarica()
     {   

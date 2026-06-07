@@ -250,8 +250,8 @@ class Mischia
         }
         else
         {   
-            document.querySelector('#PienBarraMischia').style.backgroundColor = 'red';
-            setTimeout(() => {if(Giocando){document.querySelector('#PienBarraMischia').style.backgroundColor = 'white';}},1000);
+            PBMischia.style.backgroundColor = 'red';
+            setTimeout(() => {if(Giocando){PBMischia.style.backgroundColor = 'white';}},1000);
         }
         this.Ricarica();
     }

@@ -64,6 +64,8 @@ class Nemico
     }
     AltAttacco()
     {   
+        if(!InPausa)
+        {
         AltAttacco = true;
         Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
         FrasiNemico.textContent = `${this.Frasi[0]}`;
@@ -73,16 +75,28 @@ class Nemico
         let nds = 80;
         conto = setInterval(() => {if(!InPausa){nds--; if(nds%10 == 0 && nds > 0){Countdown.textContent = nds/10;} else if(nds == 0){clearInterval(conto);}}},100);
         Sfondo.addEventListener('animationend',(event) => SuperColpito(event));
+        }
+        else
+        {
+            return this.AltAttacco();
+        }
     }
     AllAttacco()
     {   
+        if(!InPausa)
+        {
         Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
         FrasiNemico.textContent = `${this.Frasi[0]}`;
         AttaccoNemico.style.color = this.coloreAttacco;
         let t = 0;
         let dice = setInterval(() => {if(!InPausa){t += 100; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); if(Giocando){FrasiNemico.textContent = "";} clearInterval(dice)}}},100);
         AllAttacco = true;
-        this.Attacco();
+        return this.Attacco();
+        }
+        else
+        {
+            return this.AllAttacco();
+        }
     }
     Attacco()
     {   
@@ -92,7 +106,7 @@ class Nemico
             distanzaAG = distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
-            this.Attacco();
+            return this.Attacco();
         }
         else if(distanzaAG <= 0)
         {   
@@ -102,7 +116,7 @@ class Nemico
         }
         else
         {
-            this.Attacco();
+            return this.Attacco();
         }},1000/this.velocità);
     }
     Moto()
@@ -110,7 +124,7 @@ class Nemico
         let direzione = Math.random() < 0.5;
         let spazio = Math.floor(Math.random()*200);
         InMoto = true;
-        this.AggiornaPosizione(direzione,spazio);
+        return this.AggiornaPosizione(direzione,spazio);
     }
     AggiornaPosizione(direzione,spazio)
     {   
@@ -159,7 +173,7 @@ class Nemico
             DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
         }
         AggiornaMirino(ArmaPresa,distanza);
-        this.AggiornaPosizione(direzione,spazio);
+        return this.AggiornaPosizione(direzione,spazio);
         }
         }
         else if(spazio == 0)
@@ -169,7 +183,7 @@ class Nemico
         }
         else
         {
-            this.AggiornaPosizione(direzione,spazio);
+            return this.AggiornaPosizione(direzione,spazio);
         }},1000/this.velocità);
     }
 
@@ -253,7 +267,7 @@ class Mischia
             PBMischia.style.backgroundColor = 'red';
             setTimeout(() => {if(Giocando){PBMischia.style.backgroundColor = 'white';}},1000);
         }
-        this.Ricarica();
+        return this.Ricarica();
     }
     Arresta()
     {
@@ -521,7 +535,7 @@ class Personaggio
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;
         }
         AggiornaMirino(ArmaPresa,distanza);
-        this.Muovi(verso);
+        return this.Muovi(verso);
     }
     }
     else

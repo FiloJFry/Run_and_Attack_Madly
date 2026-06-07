@@ -8,7 +8,7 @@
         <link rel = "stylesheet" type="text/css" href = "MenùOpzioni.css" />
         <link rel="stylesheet" href="Animazioni.css">
     </head>
-    <body onload = "VaiVaiVai();">
+    <body onload = "VaiVaiVai()"><!--onload = "VaiVaiVai()"-->
         <div class = "Centratore">
             <div id = "PienBarra"></div>
             <div id = "Barra"></div>
@@ -22,8 +22,12 @@
         <h5 id = "S2" translate = "no">■</h5>
         <h5 id = "Rumori"></h5>
         <h5 id = "Frasi"></h5>
-        <div id = "Info">1000|9000</div>
-        <div id = "PienBarraMischia"></div><div id = "BarraMischia"></div>
+        <h5 id = "SalvezzInfo"></h5>
+        <h5 id = "Countdown"></h5>
+        <h5 class = "Info" id = "Munizioni">1000|9000</h5>
+        <div class = "MiniBarra" id = "PienBarraMischia"></div><div class = "MiniBarra" id = "BarraMischia"></div>
+        <div class = "MiniBarra" id = "GrigliaEstensione"></div><div class = "MiniBarra" id = "BarraEstensione"></div>
+        <h5 class = "Info" id = "NomEstensione">Megadistruzione</h5>
         <div id = "HP">HP: 4</div>
         <div id = "PGiocabile" class = "Personaggio"><img id= "Arma" class = "Personaggio" src = "./Immagini/Armi/Distributore di palline.jpg" alt = "Arma"/></div>
         <div id = "Info2"><h4 id = "posG">Posizione Giocatore: 0</h4><h4 id = "posA">Posizione Nemico: 100</h4><h4 id = "distanza">Distanza: 100</h4><h4 id = "distanzaAG">Distanza Attacco-Giocatore: 100</h4></div>
@@ -39,7 +43,7 @@
         <dialog id = "Conferma">
             <div id = "SchermataConferma">
                 Davvero?
-                <button type = "button" id = "Sì" onclick = "if(RimaniQui){window.location.reload();} else{window.location.href = 'index.html'}">Sì</button>
+                <button type = "button" id = "Sì" onclick = "if(RimaniQui){window.location.reload();} else{window.location.href = 'SchermataAvvio.html'}">Sì</button>
                 <button type = "button" id = "No" onclick = "PannelloConferma.close()">No</button>
             </div>
         </dialog>
@@ -60,7 +64,10 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
                     <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
                 </select>
             </div>
             <div class="Riga"><b>Ricarica:</b><input type="text" maxlength="1" size = "1" name="ComandoRicarica" />
@@ -73,7 +80,10 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
                     <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
                 </select>
             </div>
             <div class="Riga"><b>Muovi in avanti:</b><input type="text" maxlength="1" size = "1" name="ComandoMuoviSu" />
@@ -86,7 +96,10 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
                     <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
                 </select>
             </div>
             <div class="Riga"><b>Muovi all'indietro:</b><input type="text" maxlength="1" size = "1" name="ComandoMuoviGiù" />
@@ -99,7 +112,10 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
                     <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
                 </select>
             </div>
             <div class="Riga"><b>Schiva:</b><input type="text" maxlength="1" size = "1" name="ComandoSchiva" />
@@ -112,7 +128,10 @@
                     <option value="ArrowLeft">Freccia sinistra</option>
                     <option value="ArrowRight">Freccia destra</option>
                     <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
                     <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
                 </select>
                 <div class="Riga"><b>Equipaggia arma da mischia:</b><input type="text" maxlength="1" size = "1" name="Comando0" />
                     <select name="Comando0">
@@ -124,7 +143,10 @@
                         <option value="ArrowLeft">Freccia sinistra</option>
                         <option value="ArrowRight">Freccia destra</option>
                         <option value="Shift">Shift</option>
+                        <option value="Backspace">Backspace</option>
+                        <option value = "AltGraph">Alt Gr</option>
                         <option value="Delete">Cancella</option>
+                        <option value = "Tab">Tab</option>
                     </select>
                 </div>
                 <div class="Riga"><b>Equipaggia fucile shotgun:</b><input type="text" maxlength="1" size = "1" name="Comando1" />
@@ -137,7 +159,10 @@
                         <option value="ArrowLeft">Freccia sinistra</option>
                         <option value="ArrowRight">Freccia destra</option>
                         <option value="Shift">Shift</option>
+                        <option value="Backspace">Backspace</option>
+                        <option value = "AltGraph">Alt Gr</option>
                         <option value="Delete">Cancella</option>
+                        <option value = "Tab">Tab</option>
                     </select>
                 </div>
                 <div class="Riga"><b>Equipaggia fucile d'assalto:</b><input type="text" maxlength="1" size = "1" name="Comando2" />
@@ -150,7 +175,10 @@
                         <option value="ArrowLeft">Freccia sinistra</option>
                         <option value="ArrowRight">Freccia destra</option>
                         <option value="Shift">Shift</option>
+                        <option value="Backspace">Backspace</option>
+                        <option value = "AltGraph">Alt Gr</option>
                         <option value="Delete">Cancella</option>
+                        <option value = "Tab">Tab</option>
                     </select>
                 </div>
                 <div class="Riga"><b>Equipaggia fucile da cecchino:</b><input type="text" maxlength="1" size = "1" name="Comando3" />
@@ -163,9 +191,45 @@
                         <option value="ArrowLeft">Freccia sinistra</option>
                         <option value="ArrowRight">Freccia destra</option>
                         <option value="Shift">Shift</option>
+                        <option value="Alt">Alt</option>
+                        <option value="Backspace">Backspace</option>
+                        <option value = "AltGraph">Alt Gr</option>
                         <option value="Delete">Cancella</option>
+                        <option value = "Tab">Tab</option>
                     </select>
                 </div>
+            <div class="Riga"><b>Usa estensione:</b><input type="text" maxlength="1" size = "1" name="ComandoSuperFuoco" />
+                <select name="ComandoSuperFuoco">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
+                    <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
+                </select>
+            </div>
+                <div class="Riga"><b>Cambia estensione:</b><input type="text" maxlength="1" size = "1" name="ComandoAlterna" />
+                <select name="ComandoAlterna">
+                    <option value = ""></option>
+                    <option value="Enter">Invio</option>
+                    <option value=" ">Spazio</option>
+                    <option value="ArrowUp">Freccia su</option>
+                    <option value="ArrowDown">Freccia giù</option>
+                    <option value="ArrowLeft">Freccia sinistra</option>
+                    <option value="ArrowRight">Freccia destra</option>
+                    <option value="Shift">Shift</option>
+                    <option value="Backspace">Backspace</option>
+                    <option value = "AltGraph">Alt Gr</option>
+                    <option value="Delete">Cancella</option>
+                    <option value = "Tab">Tab</option>
+                </select>
+            </div>
                 <b>Mostra dati di posizione</b>
                 <button type = "button" id = "MostraLePosizioni" class = "SiONo" onclick = "if(MostraPosizioni){MostraPosizioni = false;}else{MostraPosizioni = true;} AlternaSiONo(BottonePosizioni,MostraPosizioni);"></button></div>
                 <b>Rumori delle armi</b>

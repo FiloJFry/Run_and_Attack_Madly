@@ -6,7 +6,7 @@ let BottoneSalva = document.querySelector('#Salva');
 let BottonePosizioni = document.querySelector('#MostraLePosizioni');
 let BottoneSuoni = document.querySelector('#MostraISuoni');
 let BottoneFiltro = document.querySelector("#Filtro");
-let NomiComandi = ['ComandoFuoco','ComandoRicarica','ComandoMuoviSu','ComandoMuoviGiù','ComandoSchiva','Comando0','Comando1','Comando2','Comando3'];
+let NomiComandi = ['ComandoFuoco','ComandoRicarica','ComandoMuoviSu','ComandoMuoviGiù','ComandoSchiva','Comando0','Comando1','Comando2','Comando3','ComandoSuperFuoco','ComandoAlterna'];
 let PannelloTutorial = document.querySelector('#Tutorial');
 let FiltroColore = document.querySelector("#filtroColore");
 function AggiornaTesto(sComando)
@@ -75,6 +75,14 @@ function AggiornaImmagineImpostazioni(sComando)
             case "Comando3":
             document.querySelector(`input[name = ${sComando}]`).value = "3";
             break;
+
+            case "ComandoSuperFuoco":
+            document.querySelector(`select[name = ${sComando}]`).value = "Backspace";
+            break;
+
+            case "ComandoAlterna":
+            document.querySelector(`select[name = ${sComando}]`).value = "AltGraph";
+            break;
         }
     }
 }
@@ -101,7 +109,7 @@ function PrendiComando(sComando)
 function ControllaComandi(Comandi)
 {
     let setaccio = Comandi.filter(C => C != null);
-    return new Set(setaccio).size === setaccio.length;
+    return new Set(setaccio).size == setaccio.length;
 }
 function AlternaSiONo(bottone,sì)
 {
@@ -248,15 +256,31 @@ function AggiornaImpostazioni()
     {
         Comando3 = "3";
     }
-    if(window.localStorage.getItem("MostraPosizioni") != null && Giocando)
+    if(window.localStorage.getItem("ComandoSuperFuoco") != null)
     {
-        document.querySelector('#Info2').style.color = "white";
+        ComandoSuperFuoco = window.localStorage.getItem("ComandoSuperFuoco");
     }
     else
     {
-        document.querySelector('#Info2').style.color = "transparent";
+        ComandoSuperFuoco = "Backspace";
     }
-    if(window.localStorage.getItem("MostraSuoni") != null)
+    if(window.localStorage.getItem("ComandoAlterna") != null)
+    {
+        ComandoAlterna = window.localStorage.getItem("ComandoAlterna");
+    }
+    else
+    {
+        ComandoAlterna = "AltGraph";
+    }
+    if(MostraPosizioni && Giocando)
+    {
+        LePosizioni.style.color = "white";
+    }
+    else
+    {
+        LePosizioni.style.color = "transparent";
+    }
+    if(!MostraSuoni)
     {
         RumoriArma.style.color = "transparent";
     }
@@ -264,6 +288,7 @@ function AggiornaImpostazioni()
     {
         RumoriArma.style.color = "white";
     }
+    NomiComandi.forEach(I => {AggiornaImmagineImpostazioni(I);});
     AggiornaBottoniImpostazioni();
 }
 function Salva()
@@ -271,7 +296,7 @@ function Salva()
     let Comandi = NomiComandi.map(C => PrendiComando(C));
     if(ControllaComandi(Comandi))
     {   
-        Comandi.forEach((C,I) => {window.localStorage.setItem(NomiComandi[I],C)});
+        Comandi.forEach((C,I) => {if(C != null){window.localStorage.setItem(NomiComandi[I],C)}});
         if(MostraPosizioni)
         {
             window.localStorage.setItem("MostraPosizioni",MostraPosizioni);
@@ -297,7 +322,8 @@ function Salva()
             window.localStorage.removeItem("Filtro");
         }
         if(FiltroColore == null)
-        {
+        {   
+    
             AggiornaImpostazioni();
         }
         else
@@ -320,9 +346,12 @@ function Reset()
     window.localStorage.removeItem("MostraSuoni");
     window.localStorage.removeItem("Filtro");
     filtro = null;
+    MostraPosizioni = false;
+    MostraSuoni = true;
     Filtra(filtro);
     if(FiltroColore == null)
-    {
+    {   
+
         AggiornaImpostazioni();
     }
     else

@@ -63,12 +63,12 @@ h4{
     top: 16vh;
 }
 #HP{
-    border: 0.2em solid white;
-    background-color: blue;
+    border: 0.2em solid gray;
+    background-color: brown;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 4vw;
     font-weight: bold;
-    color: white;
+    color: gray;
     margin: 2vw;
     position: absolute;
     bottom: 0;
@@ -79,21 +79,23 @@ h4{
     position: absolute;
     z-index: 2;
 }
-#Info{
-    width: 8vw;
-    padding: 1vw;
+.Info{
+    left: 1.5vw;
     position: absolute;
-    bottom: 30vh;
     z-index: 2;
     color: white;
-    fonT-size: 2.5vw;
+    font-size: 2.5vw;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#Munizioni{
+    bottom: 35vh;
 }
 #Info2{
     position: absolute;
     left: 80vw;
     bottom: 0;
     color: transparent;
+    z-index: 3;
 }
 #PienBarra{
     width: 32vw;
@@ -113,23 +115,21 @@ h4{
     z-index: 3;
     position: relative;
 }
-#PienBarraMischia{
+.MiniBarra{
     width: 20vw;
     height: 3vw;
-    background-color: white;
     position: absolute;
-    z-index: 2;
-    bottom: 22vh;
     margin: 1vw;
 }
+#PienBarraMischia{
+    background-color: white;
+    z-index: 2;
+    bottom: 35vh;
+}
 #BarraMischia{
-    width: 20vw;
-    height: 3vw;
-    background-color: blue;
-    position: absolute;
+    background-color: orange;
     z-index: 3;
-    bottom: 22vh;
-    margin: 1vw;
+    bottom: 35vh;
 }
 #S1{
     font-size: 12vw;
@@ -199,4 +199,45 @@ h4{
 .MezzoFiltro{
     filter: grayscale(50%);
     -webkit-filter: grayscale(50%);
+}
+#GrigliaEstensione{
+    width: 20.4vw;
+    height: 3.2vw;
+    background-color: transparent;
+    background-size: var(--spazicariche) 3.2vw;
+    background-image: linear-gradient(to right, gray 0.05vw, transparent 0.05vw);
+    border: 0.25vw solid white;
+    --spazicariche: 5vw;
+    z-index: 4;
+    bottom: 27vh;
+}
+#BarraEstensione{
+    width: 20.25vw;
+    background-color: blue;
+    z-index: 3;
+    bottom: 27vh;
+}
+#NomEstensione{
+    bottom: 14vh;
+    display: flex;
+    flex-direction: row;
+}
+#SalvezzInfo{
+    color: white;
+    font-size: 2.5vw;
+    font-style: italic;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: absolute;
+    top: 0vw;
+    margin: 2.5vw;
+}
+#Countdown{
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 5vw;
+    margin: 5vw;
+    left: 1.5vw;
 }

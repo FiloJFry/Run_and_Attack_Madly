@@ -90,8 +90,28 @@
     }
     100%
     {
-        background-color: blue;
+        background-color: brown;
+        border-color: gray;
+        color: gray;
     }
+}
+@keyframes SuperAttacco
+{
+    from{
+        background-color: black;
+    }
+    to{
+        background-color: var(--attaccolore);
+    }
+}
+@property --attaccolore
+{
+  syntax: '<color>';
+  inherits: false;
+  initial-value: white;
+}
+.Sfondone{
+    animation: SuperAttacco 8s linear;
 }
 .LampeggiaHP{
     animation: Lampeggianti 2.5s ease-in-out;

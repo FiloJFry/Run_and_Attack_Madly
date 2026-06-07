@@ -245,6 +245,7 @@ function Fine(vittoria)
         Elementi.forEach(E => {E.style.opacity = 0;});
         ArmaInCanna.style.opacity = 1;
         Boss.style.opacity = 1;
+        document.querySelector('#PienBarraVita').style.opacity = 0;
         FrasiNemico.style.opacity = 1;
         PannelloPausa.style.opacity = 1;
         PannelloConferma.style.opacity = 1;

@@ -72,7 +72,7 @@ class Nemico
             distanzaAG = distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
-            this.Attacco();
+            return this.Attacco();
         }
         else if(distanzaAG <= 0)
         {   
@@ -155,7 +155,7 @@ class Nemico
             DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
         }
         AggiornaMirino();
-        this.AggiornaPosizione();
+        return this.AggiornaPosizione();
         }
         }
         else if(spazio == 0)

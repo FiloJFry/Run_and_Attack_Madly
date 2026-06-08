@@ -78,7 +78,7 @@ class Nemico
         }
         else
         {
-            return this.AltAttacco();
+            this.AltAttacco();
         }
     }
     AllAttacco()
@@ -91,11 +91,11 @@ class Nemico
         let t = 0;
         let dice = setInterval(() => {if(!InPausa){t += 100; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); if(Giocando){FrasiNemico.textContent = "";} clearInterval(dice)}}},100);
         AllAttacco = true;
-        return this.Attacco();
+        this.Attacco();
         }
         else
         {
-            return this.AllAttacco();
+            this.AllAttacco();
         }
     }
     Attacco()
@@ -173,7 +173,7 @@ class Nemico
             DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
         }
         AggiornaMirino(ArmaPresa,distanza);
-        return this.AggiornaPosizione(direzione,spazio);
+        this.AggiornaPosizione(direzione,spazio);
         }
         }
         else if(spazio == 0)
@@ -183,7 +183,7 @@ class Nemico
         }
         else
         {
-            return this.AggiornaPosizione(direzione,spazio);
+            this.AggiornaPosizione(direzione,spazio);
         }},1000/this.velocità);
     }
 
@@ -267,7 +267,7 @@ class Mischia
             PBMischia.style.backgroundColor = 'red';
             setTimeout(() => {if(Giocando){PBMischia.style.backgroundColor = 'white';}},1000);
         }
-        return this.Ricarica();
+        this.Ricarica();
     }
     Arresta()
     {
@@ -535,7 +535,7 @@ class Personaggio
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;
         }
         AggiornaMirino(ArmaPresa,distanza);
-        return this.Muovi(verso);
+        this.Muovi(verso);
     }
     }
     else

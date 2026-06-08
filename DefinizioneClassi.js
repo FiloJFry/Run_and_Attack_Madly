@@ -1,3 +1,5 @@
+let direzione;
+let spazio;
 class Nemico
 {
     constructor(nome,attacco,coloreAttacco,Frasi)
@@ -62,10 +64,30 @@ class Nemico
     {
         return this._Frasi;
     }
+    Attacco()
+    {   
+        setTimeout(() => {
+        if(distanzaAG > 0 && !InPausa)
+        {
+            distanzaAG = distanzaAG - 1;
+            AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
+            this.Attacco();
+        }
+        else if(distanzaAG <= 0)
+        {   
+            Colpito();
+            AllAttacco = false;
+            return;
+        }
+        else
+        {   
+            document.removeEventListener("Riprendi",this.Attacco.bind(this),{once: true,});
+            document.addEventListener("Riprendi",this.Attacco.bind(this),{once: true,});
+        }},1000/this.velocità);
+    }
     AltAttacco()
     {   
-        if(!InPausa)
-        {
         AltAttacco = true;
         Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
         FrasiNemico.textContent = `${this.Frasi[0]}`;
@@ -75,16 +97,9 @@ class Nemico
         let nds = 80;
         conto = setInterval(() => {if(!InPausa){nds--; if(nds%10 == 0 && nds > 0){Countdown.textContent = nds/10;} else if(nds == 0){clearInterval(conto);}}},100);
         Sfondo.addEventListener('animationend',(event) => SuperColpito(event));
-        }
-        else
-        {
-            this.AltAttacco();
-        }
     }
     AllAttacco()
     {   
-        if(!InPausa)
-        {
         Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
         FrasiNemico.textContent = `${this.Frasi[0]}`;
         AttaccoNemico.style.color = this.coloreAttacco;
@@ -92,41 +107,8 @@ class Nemico
         let dice = setInterval(() => {if(!InPausa){t += 100; if(t >= 1000){Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}.jpg`); if(Giocando){FrasiNemico.textContent = "";} clearInterval(dice)}}},100);
         AllAttacco = true;
         this.Attacco();
-        }
-        else
-        {
-            this.AllAttacco();
-        }
     }
-    Attacco()
-    {   
-        setTimeout(() => {
-        if(distanzaAG > 0 && !InPausa)
-        {
-            distanzaAG = distanzaAG - 1;
-            AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
-            return this.Attacco();
-        }
-        else if(distanzaAG <= 0)
-        {   
-            Colpito();
-            AllAttacco = false;
-            return;
-        }
-        else
-        {
-            return this.Attacco();
-        }},1000/this.velocità);
-    }
-    Moto()
-    {   
-        let direzione = Math.random() < 0.5;
-        let spazio = Math.floor(Math.random()*200);
-        InMoto = true;
-        return this.AggiornaPosizione(direzione,spazio);
-    }
-    AggiornaPosizione(direzione,spazio)
+    AggiornaPosizione()
     {   
         setTimeout(() => {
         if(spazio > 0 && InMoto && posA >= 0 && posA <= 200 && !InPausa)
@@ -172,8 +154,8 @@ class Nemico
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
             DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
         }
-        AggiornaMirino(ArmaPresa,distanza);
-        this.AggiornaPosizione(direzione,spazio);
+        AggiornaMirino();
+        this.AggiornaPosizione();
         }
         }
         else if(spazio == 0)
@@ -182,9 +164,17 @@ class Nemico
             return;
         }
         else
-        {
-            this.AggiornaPosizione(direzione,spazio);
+        {   
+            document.removeEventListener("Riprendi",this.AggiornaPosizione.bind(this),{once: true,});
+            document.addEventListener("Riprendi",this.AggiornaPosizione.bind(this),{once: true,});
         }},1000/this.velocità);
+    }
+    Moto()
+    {   
+        direzione = Math.random() < 0.5;
+        spazio = Math.floor(Math.random()*200);
+        InMoto = true;
+        this.AggiornaPosizione();
     }
 
 }

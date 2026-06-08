@@ -1,3 +1,4 @@
+let VRag;
 let posG = 0;
 let posA = 100;
 let distanza = 100;
@@ -60,6 +61,8 @@ let PannelloPausa = document.querySelector('#Pausa');
 let PannelloConferma = document.querySelector('#Conferma');
 let Sfondo = document.querySelector("body");
 let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,PBMischia,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,SalvezzInfo,Countdown,BarraEstensione,GirgliaEstensione,NomeDellEstensione,PannelloConferma,PannelloPausa,PannelloOpzioni];
+const VAI = new Event("Riprendi");
+let poi;
 function ScaricaImmaginiArma(a)
 {
     new Image().src = `./Immagini/Armi/${a.nome}.jpg`;
@@ -232,6 +235,8 @@ function PausaRiprendi()
         PersonaggioGiocabile.style.animationPlayState = "running";
         hp.style.animationPlayState = "running";
         Sfondo.style.animationPlayState = "running";
+        clearTimeout(poi);
+        document.dispatchEvent(VAI);
         PannelloPausa.close();
     }
 }
@@ -245,7 +250,6 @@ function Fine(vittoria)
         Elementi.forEach(E => {E.style.opacity = 0;});
         ArmaInCanna.style.opacity = 1;
         Boss.style.opacity = 1;
-        document.querySelector('#PienBarraVita').style.opacity = 0;
         FrasiNemico.style.opacity = 1;
         PannelloPausa.style.opacity = 1;
         PannelloConferma.style.opacity = 1;
@@ -435,24 +439,44 @@ function Gioco()
         let disc = Math.random()*Math.max(30,Math.min(distanza,60))/40 - Math.sqrt(Protagonista.vita)/(Math.trunc(Math.sqrt(Protagonista.vita))*10);
         if(disc < 0.6)
         {   
-            if(!AllAttacco && (distanza > NemicoScelto.velocità || PuòSchivare) && (disc > 0.12 || AltAttacco))
-            {
-                NemicoScelto.AllAttacco(); 
+            if(!AllAttacco && (distanza > NemicoScelto.velocità || (PuòSchivare && distanza/NemicoScelto.velocità > 0.1)) && (disc > 0.12 || AltAttacco))
+            {   
+                if(!InPausa)
+                {
+                    NemicoScelto.AllAttacco(); 
+                }
+                else
+                {
+                    document.addEventListener("Riprendi",NemicoScelto.AllAttacco.bind(NemicoScelto),{once: true,});
+                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoScelto.AllAttacco.bind(NemicoScelto),{once: true,});},VRag);
+                }
             }
             else if(!AltAttacco)
+            {   
+                if(!InPausa)
+                {
+                    NemicoScelto.AltAttacco();
+                }
+                else
+                {
+                    document.addEventListener("Riprendi",NemicoScelto.AltAttacco.bind(NemicoScelto),{once: true,});
+                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoScelto.AltAttacco.bind(NemicoScelto),{once: true,});},VRag);
+                }
+            }
+        }
+        else if(!InMoto)
+        {   
+            if(!InPausa)
             {
-                NemicoScelto.AltAttacco();
+                NemicoScelto.Moto();
             }
             else
             {
-                NemicoScelto.Moto();    
+                document.addEventListener("Riprendi",NemicoScelto.Moto.bind(NemicoScelto),{once: true,});
+                poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoScelto.Moto.bind(NemicoScelto),{once: true,});},VRag);
             }
         }
-        else
-        {   
-            NemicoScelto.Moto();
-        }
-    },4000/difficoltà);
+    },VRag);
 }
 function VaiVaiVai()
 {
@@ -460,6 +484,7 @@ function VaiVaiVai()
     Armi.forEach(A => {if(sessionStorage.getItem("ShotgunEquipaggiato") == A.nome){ShotgunEquipaggiato = A;} else if (sessionStorage.getItem("AssaltoEquipaggiato") == A.nome){AssaltoEquipaggiato = A;} else if (sessionStorage.getItem("CecchinoEquipaggiato") == A.nome){CecchinoEquipaggiato = A;}});
     Mischie.forEach(M => {if(sessionStorage.getItem("MischiaEquipaggiata") == M.nome){MischiaEquipaggiata = M;}})
     difficoltà = Number(sessionStorage.getItem("Difficoltà"));
+    VRag = 4000/difficoltà;
     AggiornaImpostazioni();
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
     ScaricaImmagini(MischiaEquipaggiata.nome,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEquipaggiato,NemicoScelto.nome);

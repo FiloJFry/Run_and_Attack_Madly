@@ -6,7 +6,7 @@ Run and Attack Madly è uno sparatutto in prima persona incentrato sulle battagl
 - Una volta scaricato lo zip,estrailo
 - Per giocare,visita la cartella creata dall'estrazione dello zip e apri il file "index.html" o crea un collegamento sul desktop con quest'ultimo prima di aprirlo
 - Buon divertimento!
-# P.S. Come creo un collegamento sul desktop col file?
+# P.S. Come posso far comparire il gioco sul desktop come qualsiasi altra app?
 - Assicurati di aver estratto i file dallo zip scaricato da qui col tasto verde "Code"
 - Clicca col tasto destro sul desktop,poi su "Nuovo"
 - Clicca su "Collegamento"

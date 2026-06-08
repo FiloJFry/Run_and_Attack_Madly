@@ -9,7 +9,7 @@ const SpargiSchegge = new Arma("Spargischegge",10000,25,4,1000,550,false,"|***|"
     ["Super schegge", 450, 63, 0.2, 40, 80, 900, true, "tzn"]);
 const LanciafiammeTriforcuto = new Arma("Lanciafiamme triforcuto",5500,20,5,1,800,true,"^ ^ ^",["FFFSH", "", "blblblbl..."],
     ["Palla di fuoco", 3250, 73, 2.5, 6, 95, 630, true, "Fum!"],
-    ["Vento di fuoco", 15200, 150, 20, 1, 2000, 2500, false, "Fvsh!"]);
+    ["Ventata infuocata", 15200, 150, 20, 1, 2000, 2500, false, "Fvsh!"]);
 const DistributoreDiPalline = new Arma("Distributore di palline",225,78,50,40,950,true,"I<br/>==O==<br/>I",["Boing!", "tk", "CRT-CRT-CRT"],
     ["Megadistruzione", 7425, 124, 50, 3, 1600, 530, false, "BOOING"],
     ["Cascataclisma", 8750, 35, 25, 5, 800, 840, false, "Br-bng!"]);

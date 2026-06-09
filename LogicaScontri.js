@@ -437,7 +437,7 @@ function Gioco()
             document.addEventListener('click',() => {if(!InPausa){PausaRiprendi()}});
     Partita = setInterval(() => {
         let disc = Math.random()*Math.max(30,Math.min(distanza,60))/40 - Math.sqrt(Protagonista.vita)/(Math.trunc(Math.sqrt(Protagonista.vita))*10);
-        if(disc < 0.6)
+        if(disc < 0.5)
         {   
             if(!AllAttacco && (distanza > NemicoScelto.velocità || (PuòSchivare && distanza/NemicoScelto.velocità > 0.1)) && (disc > 0.12 || AltAttacco))
             {   

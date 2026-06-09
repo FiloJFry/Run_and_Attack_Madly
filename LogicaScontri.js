@@ -293,7 +293,7 @@ function Gioco()
     AttaccoNemico.textContent = NemicoScelto.attacco;
     PiuInfo.textContent = `${ArmaPresa.munizioni}|${ArmaPresa.inventario}`;
     NemicoScelto.velocità = Math.pow(1.5,difficoltà)*10;
-    NemicoScelto.vita = Math.pow(1.2,difficoltà)*500000;
+    NemicoScelto.vita = Math.pow(1.2,difficoltà)*450000;
     NemicoScelto.maxvita = NemicoScelto.vita;
     Boss.style.transform = `scale(${10/Math.max(distanza,10)})`;
     AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;

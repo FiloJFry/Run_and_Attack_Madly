@@ -148,7 +148,7 @@ class Nemico
         Boss.style.transform = `scale(${10/Math.max(distanza,10)})`; 
         PosizioneNemico.textContent = `Posizione Nemico: ${posA}`; 
         Distanza.textContent = `Distanza: ${distanza}`;  
-        if(AttaccoNemico.style.color == "transparent")
+        if(!AllAttacco)
         {
             distanzaAG = distanza;
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;

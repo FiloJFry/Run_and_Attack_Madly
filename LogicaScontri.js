@@ -186,7 +186,7 @@ function Colpito()
         }
         distanzaAG = distanza;
         AttaccoNemico.style.color = "transparent";
-        AttaccoNemico.style.transform = `scale(${Math.max(10/distanzaAG,1)})`;
+        AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
         DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
 }
 function SuperColpito(event)

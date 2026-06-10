@@ -63,6 +63,9 @@ let Sfondo = document.querySelector("body");
 let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,PBMischia,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,SalvezzInfo,Countdown,BarraEstensione,GirgliaEstensione,NomeDellEstensione,PannelloConferma,PannelloPausa,PannelloOpzioni];
 const VAI = new Event("Riprendi");
 let poi;
+let NemicoInMoto = NemicoScelto.Moto.bind(NemicoScelto);
+let NemicoAllAttacco = NemicoScelto.AllAttacco.bind(NemicoScelto);
+let NemicoAltAttacco = NemicoScelto.AltAttacco.bind(NemicoScelto);
 function ScaricaImmaginiArma(a)
 {
     new Image().src = `./Immagini/Armi/${a.nome}.jpg`;
@@ -212,7 +215,6 @@ function SuperColpito(event)
             if(Giocando){FrasiNemico.textContent = "";}
             danni = 0;
             AltAttacco = false;
-        Sfondo.removeEventListener('animationend',SuperColpito.bind(event));
     }
 }
 function PausaRiprendi()
@@ -436,8 +438,7 @@ function Gioco()
             });
             document.addEventListener('click',() => {if(!InPausa){PausaRiprendi()}});
     Partita = setInterval(() => {
-        let disc = Math.random()*Math.max(30,Math.min(distanza,60))/40 - Math.sqrt(Protagonista.vita)/(Math.trunc(Math.sqrt(Protagonista.vita))*10);
-        if(disc < 0.5)
+if(disc < 0.5)
         {   
             if(!AllAttacco && (distanza > NemicoScelto.velocità || (PuòSchivare && distanza/NemicoScelto.velocità > 0.1)) && (disc > 0.12 || AltAttacco))
             {   
@@ -447,8 +448,8 @@ function Gioco()
                 }
                 else
                 {
-                    document.addEventListener("Riprendi",NemicoScelto.AllAttacco.bind(NemicoScelto),{once: true,});
-                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoScelto.AllAttacco.bind(NemicoScelto),{once: true,});},VRag);
+                    document.addEventListener("Riprendi",NemicoAllAttacco,{once: true,});
+                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoAllAttacco,{once: true,});},VRag -1);
                 }
             }
             else if(!AltAttacco)
@@ -459,8 +460,8 @@ function Gioco()
                 }
                 else
                 {
-                    document.addEventListener("Riprendi",NemicoScelto.AltAttacco.bind(NemicoScelto),{once: true,});
-                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoScelto.AltAttacco.bind(NemicoScelto),{once: true,});},VRag);
+                    document.addEventListener("Riprendi",NemicoAltAttacco,{once: true,});
+                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoAltAttacco,{once: true,});},VRag -1);
                 }
             }
         }
@@ -472,10 +473,11 @@ function Gioco()
             }
             else
             {
-                document.addEventListener("Riprendi",NemicoScelto.Moto.bind(NemicoScelto),{once: true,});
-                poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoScelto.Moto.bind(NemicoScelto),{once: true,});},VRag);
+                document.addEventListener("Riprendi",NemicoInMoto,{once: true,});
+                poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoInMoto,{once: true,});},VRag -1);
             }
         }
+    },VRag);
     },VRag);
 }
 function VaiVaiVai()

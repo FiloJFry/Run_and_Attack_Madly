@@ -91,12 +91,16 @@ class Nemico
         AltAttacco = true;
         Boss.setAttribute('src',`./Immagini/Nemici/${this.nome}_attaccando.jpg`);
         FrasiNemico.textContent = `${this.Frasi[0]}`;
-        document.querySelector('body').classList.add("Sfondone");
+        Sfondo.classList.add("Sfondone");
         SalvezzInfo.innerHTML = "Infliggi danni entro<br/>o schiva fra"
         Countdown.textContent = 8;
         let nds = 80;
-        conto = setInterval(() => {if(!InPausa){nds--; if(nds%10 == 0 && nds > 0){Countdown.textContent = nds/10;} else if(nds == 0){clearInterval(conto);}}},100);
-        Sfondo.addEventListener('animationend',SuperColpito(event),{once: true,});
+        conto = setInterval(() => {if(!InPausa){nds--; if(nds%10 == 0 && nds > 0){Countdown.textContent = nds/10;} else if(nds == 0){
+            SalvezzInfo.textContent = ""; 
+            Countdown.textContent = ""; 
+            Sfondo.dispatchEvent(LEVA);
+            clearInterval(conto);}}},100);
+        Sfondo.addEventListener('pop',(event) => SuperColpito(event),{once: true});
     }
     AllAttacco()
     {   
@@ -151,7 +155,7 @@ class Nemico
         if(!AllAttacco)
         {
             distanzaAG = distanza;
-            AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+            AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,10)})`;
             DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
         }
         AggiornaMirino();
@@ -511,7 +515,7 @@ class Personaggio
         else
         {
         Boss.style.transform = `scale(${10/Math.max(distanza,10)})`;
-        AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+        AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,10)})`;
         Segnaposto1.style.transform = `scale(${10/Math.max(posG,10)})`;
         Segnaposto2.style.transform = `scale(${10/Math.max(200 - posG,10)})`;
         PosizioneGiocatore.textContent = `Posizione Giocatore: ${posG}`; 
@@ -525,7 +529,7 @@ class Personaggio
             DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;
         }
         AggiornaMirino(ArmaPresa,distanza);
-        this.Muovi(verso);
+        return this.Muovi(verso);
     }
     }
     else

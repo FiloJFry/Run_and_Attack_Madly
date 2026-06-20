@@ -62,10 +62,13 @@ let PannelloConferma = document.querySelector('#Conferma');
 let Sfondo = document.querySelector("body");
 let Elementi = [Boss,ArmaInCanna,Mirino,PiuInfo,AttaccoNemico,BarraVita,hp,PBMischia,BarraMischia,PosizioneGiocatore,PosizioneNemico,Distanza,DistanzaAttaccoGiocatore,Segnaposto1,Segnaposto2,RumoriArma,FrasiNemico,SalvezzInfo,Countdown,BarraEstensione,GirgliaEstensione,NomeDellEstensione,PannelloConferma,PannelloPausa,PannelloOpzioni];
 const VAI = new Event("Riprendi");
+const LEVA = new Event("pop");
 let poi;
-let NemicoInMoto = NemicoScelto.Moto.bind(NemicoScelto);
-let NemicoAllAttacco = NemicoScelto.AllAttacco.bind(NemicoScelto);
-let NemicoAltAttacco = NemicoScelto.AltAttacco.bind(NemicoScelto);
+let NemicoInMoto;
+let NemicoAllAttacco; 
+let NemicoAltAttacco;
+let n;
+let m;
 function ScaricaImmaginiArma(a)
 {
     new Image().src = `./Immagini/Armi/${a.nome}.jpg`;
@@ -164,7 +167,7 @@ function Preso(ArmaEquipaggiata)
             danni += ArmaEquipaggiata.danni;
             if(danni >= ric)
             {
-                Sfondo.dispatchEvent(new AnimationEvent('animationend',{animationName: 'SuperAttacco'}));
+                Sfondo.dispatchEvent(LEVA);
             }
         }
         return true;
@@ -189,14 +192,12 @@ function Colpito()
         }
         distanzaAG = distanza;
         AttaccoNemico.style.color = "transparent";
-        AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
+        AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,10)})`;
         DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
 }
 function SuperColpito(event)
 {       
-    if(event.animationName == "SuperAttacco")
-    {
-            if(ric > danni && !Schivando)
+        if(ric > danni && !Schivando)
             {
                 Protagonista.vita -= 1;
                 hp.textContent = `HP: ${Protagonista.vita}`;
@@ -207,15 +208,11 @@ function SuperColpito(event)
                     Fine(false);
                 }
             }
-            clearInterval(conto);
             Sfondo.classList.remove("Sfondone");
-            SalvezzInfo.textContent = "";
-            Countdown.textContent = "";
             Boss.setAttribute('src',`./Immagini/Nemici/${NemicoScelto.nome}.jpg`);
             if(Giocando){FrasiNemico.textContent = "";}
             danni = 0;
             AltAttacco = false;
-    }
 }
 function PausaRiprendi()
 {   
@@ -252,6 +249,7 @@ function Fine(vittoria)
         Elementi.forEach(E => {E.style.opacity = 0;});
         ArmaInCanna.style.opacity = 1;
         Boss.style.opacity = 1;
+        document.querySelector("#PienBarra").style.opacity = 0;
         FrasiNemico.style.opacity = 1;
         PannelloPausa.style.opacity = 1;
         PannelloConferma.style.opacity = 1;
@@ -438,30 +436,50 @@ function Gioco()
             });
             document.addEventListener('click',() => {if(!InPausa){PausaRiprendi()}});
     Partita = setInterval(() => {
-if(disc < 0.5)
+        document.removeEventListener("Riprendi",NemicoAllAttacco,{once: true,});
+        document.removeEventListener("Riprendi",NemicoAltAttacco,{once: true,});
+        document.removeEventListener("Riprendi",NemicoInMoto,{once: true,});
+        let disc = Math.random()*Math.max(30,Math.min(distanza,60))/40 - Math.sqrt(Protagonista.vita)/(Math.trunc(Math.sqrt(Protagonista.vita))*10);
+        if(disc < 0.6)
         {   
             if(!AllAttacco && (distanza > NemicoScelto.velocità || (PuòSchivare && distanza/NemicoScelto.velocità > 0.1)) && (disc > 0.12 || AltAttacco))
             {   
                 if(!InPausa)
-                {
-                    NemicoScelto.AllAttacco(); 
+                {   
+                    if(n < 3)
+                    {
+                        n++;
+                        NemicoScelto.AllAttacco();
+                    }
+                    else
+                    {
+                        n = 0;
+                        NemicoScelto.Moto();
+                    } 
                 }
                 else
                 {
                     document.addEventListener("Riprendi",NemicoAllAttacco,{once: true,});
-                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoAllAttacco,{once: true,});},VRag -1);
                 }
             }
             else if(!AltAttacco)
             {   
                 if(!InPausa)
                 {
-                    NemicoScelto.AltAttacco();
+                    if(m < 3)
+                    {
+                        m++;
+                        NemicoScelto.AltAttacco();
+                    }
+                    else
+                    {
+                        m = 0;
+                        NemicoScelto.Moto();
+                    } 
                 }
                 else
                 {
                     document.addEventListener("Riprendi",NemicoAltAttacco,{once: true,});
-                    poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoAltAttacco,{once: true,});},VRag -1);
                 }
             }
         }
@@ -474,10 +492,8 @@ if(disc < 0.5)
             else
             {
                 document.addEventListener("Riprendi",NemicoInMoto,{once: true,});
-                poi = setTimeout(() => {document.removeEventListener("Riprendi",NemicoInMoto,{once: true,});},VRag -1);
             }
         }
-    },VRag);
     },VRag);
 }
 function VaiVaiVai()
@@ -491,5 +507,8 @@ function VaiVaiVai()
     NomiComandi.forEach(C => {AggiornaImmagineImpostazioni(C);});
     ScaricaImmagini(MischiaEquipaggiata.nome,ShotgunEquipaggiato,AssaltoEquipaggiato,CecchinoEquipaggiato,NemicoScelto.nome);
     Filtra(filtro);
+    NemicoInMoto = NemicoScelto.Moto.bind(NemicoScelto);
+    NemicoAllAttacco = NemicoScelto.AllAttacco.bind(NemicoScelto);
+    NemicoAltAttacco = NemicoScelto.AltAttacco.bind(NemicoScelto);
     Gioco();
 }

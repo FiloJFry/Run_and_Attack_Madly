@@ -195,7 +195,7 @@ function Colpito()
         AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,10)})`;
         DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
 }
-function SuperColpito(event)
+function SuperColpito()
 {       
         if(ric > danni && !Schivando)
             {

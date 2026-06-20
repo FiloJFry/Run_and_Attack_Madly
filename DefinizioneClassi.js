@@ -100,7 +100,7 @@ class Nemico
             Countdown.textContent = ""; 
             Sfondo.dispatchEvent(LEVA);
             clearInterval(conto);}}},100);
-        Sfondo.addEventListener('pop',(event) => SuperColpito(event),{once: true});
+        Sfondo.addEventListener('pop',() => SuperColpito(),{once: true});
     }
     AllAttacco()
     {   

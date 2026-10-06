@@ -19,7 +19,7 @@ button{
     text-align: center;
     margin: 2vw;
 }
-input[type = "text"]{
+input{
     background-color: black;
     border: solid white;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
@@ -51,6 +51,20 @@ select{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+#SelettoreController{
+    height: 4vw;
+    width: 18vw;
+    border: 0.2 vw solid white;
+}
+button[name = 'AM']
+{
+    height: 2.8vw;
+    width: 5vw;
+    color: white;
+    background-color: black;
+    border: 0.2vw solid white;
+    padding: 0vw;
 }
 .MiniCentratore{
     display: flex;

@@ -71,7 +71,7 @@ class Nemico
         {
             distanzaAG = distanzaAG - 1;
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,1)})`;
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;   
+            if(MostraPosizioni){DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;}  
             return this.Attacco();
         }
         else if(distanzaAG <= 0)
@@ -150,13 +150,13 @@ class Nemico
         {
         spazio -= 1;
         Boss.style.transform = `scale(${10/Math.max(distanza,10)})`; 
-        PosizioneNemico.textContent = `Posizione Nemico: ${posA}`; 
-        Distanza.textContent = `Distanza: ${distanza}`;  
+        if(MostraPosizioni){PosizioneNemico.textContent = `Posizione Nemico: ${posA}`;}
+        if(MostraPosizioni){Distanza.textContent = `Distanza: ${distanza}`;}
         if(!AllAttacco)
         {
             distanzaAG = distanza;
             AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,10)})`;
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;   
+            if(MostraPosizioni){DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;}  
         }
         AggiornaMirino();
         return this.AggiornaPosizione();
@@ -335,14 +335,14 @@ class Arma extends Mischia
         return this._Estensione;
     }
     Fuoco()
-    {
-        this.Spara();
+    {   
         Colpo = true;
+        this.Spara();
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.Spara();},ArmaPresa.rateo + 20);
+            Spara = setInterval(() => {this.Spara();},ArmaPresa.rateo + 35);
         }
-        else if(risparo)
+        else
         {   
             risparo = false;
             let cont = 0;
@@ -350,7 +350,7 @@ class Arma extends Mischia
         }
     }
     Arresta()
-    {
+    {   
         Colpo = false;
         if(this.altorateo)
         {
@@ -364,18 +364,23 @@ class Arma extends Mischia
     Spara()
     {    
         if(this.munizioni > 0)
-        { 
+        {   
+            if(Controller && !d)
+            {
+                PsF == (6 || 7)? Controller.vibrationActuator.playEffect("trigger-rumble",{duration: 35,strongMagnitude: VC*Math.min(this.danni/5000,1),weakMagnitude: VC*Math.max(Math.min(1,100/this.danni),Math.min(this.danni/5000,1)),[PsF == 6? 'leftTrigger' : 'rightTrigger']: VG*Math.max(Math.min(1,100/this.danni),Math.min(this.danni/5000,1))}) :
+                Controller.vibrationActuator.playEffect("dual-rumble",{duration: 35,strongMagnitude: VC*Math.min(this.danni/5000,1),weakMagnitude: VC*Math.max(Math.min(1,100/this.danni),Math.min(this.danni/5000,1)),});
+            } 
             ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}_attaccando.jpg`);
             this.munizioni--;
             PiuInfo.textContent = `${this.munizioni}|${this.inventario}`;
-            RumoriArma.textContent = `${this.Rumori[0]}`; 
+            if(MostraSuoni){RumoriArma.textContent = `${this.Rumori[0]}`;}
             setTimeout(() => {if(Preso(this) && this.Estensione.carica < this.Estensione.maxcarico)
             {
                 this.Estensione.carica++;
                 this.Estensione.cariche = this.Estensione.carica/this.Estensione.step;
-                BarraEstensione.style.width = `${0.25 + 20*this.Estensione.carica/this.Estensione.maxcarico}vw`;
+                AmmoEstensione.textContent = `${Math.trunc(this.Estensione.cariche)}/${this.Estensione.maxcariche}`; 
             };},1000*distanza/this.velocità);
-            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},20);
+            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${this.nome}.jpg`); RumoriArma.textContent = "";},35);
         }
         else
         {   
@@ -480,36 +485,35 @@ class Personaggio
         {
         if(verso && posG < 200)
         {
-            posG = posG + 1;
+            posG++;
             if(posG > posA)
             {
-                distanza = distanza + 1;
-                distanzaAG = distanzaAG + 1;
+                distanza++;
+                distanzaAG++;
             }
             else
             {
-                distanza = distanza - 1;
-                distanzaAG = distanzaAG - 1;
+                distanza--;
+                distanzaAG--;
             }
         }
         else if(!verso && posG > 0)
         {
-            posG = posG - 1;
+            posG--;
             if(posG < posA)
             {
-                distanza = distanza + 1;
-                distanzaAG = distanzaAG + 1;
+                distanza++;
+                distanzaAG++;
             }
             else
             {
-                distanza = distanza - 1;
-                distanzaAG = distanzaAG - 1;
+                distanza--;
+                distanzaAG--;
             }
         }
         if((verso && posG == 200) || (!verso && posG == 0))
         {
             PersonaggioGiocabile.classList.remove('Scuoti');
-            Corri = false;
             return;
         }
         else
@@ -518,16 +522,9 @@ class Personaggio
         AttaccoNemico.style.transform = `scale(${10/Math.max(distanzaAG,10)})`;
         Segnaposto1.style.transform = `scale(${10/Math.max(posG,10)})`;
         Segnaposto2.style.transform = `scale(${10/Math.max(200 - posG,10)})`;
-        PosizioneGiocatore.textContent = `Posizione Giocatore: ${posG}`; 
-        Distanza.textContent = `Distanza: ${distanza}`;
-        if(AttaccoNemico.style.color == "transparent")
-        {
-            DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
-        }
-        else
-        {
-            DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}`;
-        }
+        if(MostraPosizioni){PosizioneGiocatore.textContent = `Posizione Giocatore: ${posG}`;} 
+        if(MostraPosizioni){Distanza.textContent = `Distanza: ${distanza}`;}
+        AllAttacco ? DistanzaAttaccoGiocatore.textContent = `Distanza Attacco - Giocatore: ${distanzaAG}` : DistanzaAttaccoGiocatore.textContent = `[Distanza Attacco - Giocatore]: ${distanzaAG}`;
         AggiornaMirino(ArmaPresa,distanza);
         return this.Muovi(verso);
     }
@@ -535,7 +532,6 @@ class Personaggio
     else
     {   
         PersonaggioGiocabile.classList.remove('Scuoti');
-        Corri = false;
         return;
     }},1000/this.velocità);
     }
@@ -553,8 +549,7 @@ class Personaggio
     Mirino.innerHTML = ArmaEquipaggiata.mirino;
     if(ArmaEquipaggiata.Estensione != null)
     {
-        GirgliaEstensione.style.setProperty("--spazicariche",`${20/ArmaEquipaggiata.Estensione.maxcariche}vw`);
-        BarraEstensione.style.width = `${0.25 + 20*ArmaEquipaggiata.Estensione.carica/ArmaEquipaggiata.Estensione.maxcarico}vw`;
+        AmmoEstensione.textContent = `${Math.trunc(ArmaEquipaggiata.Estensione.cariche)}/${ArmaEquipaggiata.Estensione.maxcariche}`;
         NomeDellEstensione.textContent = `${ArmaEquipaggiata.Estensione.nome}`;
         PiuInfo.textContent = `${ArmaEquipaggiata.munizioni}|${ArmaEquipaggiata.inventario}`;
     }
@@ -715,8 +710,7 @@ class Estensione
         this.carica = Math.min(this.carica,this.maxcarico);
         this.cariche = Math.trunc(this.carica/this.step);
         NomeDellEstensione.textContent = this.nome;
-        GrigliaEstensione.style.setProperty("--spazicariche",`${20/this.maxcariche}vw`);
-        BarraEstensione.style.width = `${0.25 + 20*this.carica/this.maxcarico}vw`;
+        AmmoEstensione.textContent = `${Math.trunc(this.cariche)}/${this.maxcariche}`;
         let M = this.Mod2;
         this.Mod2 = this.Mod1;
         this.Mod1 = M;
@@ -724,12 +718,12 @@ class Estensione
     }
     SuperFuoco()
     {   
+        Colpo = true;
         RumoriArma.style.color = "red";
         this.SuperSpara();
-        Colpo = true;
         if(this.altorateo)
         {   
-            Spara = setInterval(() => {this.SuperSpara();},this.rateo + 20);
+            Spara = setInterval(() => {this.SuperSpara();},this.rateo + 35);
         }
         else if(risparo)
         {   
@@ -739,7 +733,7 @@ class Estensione
         }
     }
     SuperArresta()
-    {
+    {   
         Colpo = false;
         RumoriArma.style.color = "white";
         if(this.altorateo)
@@ -754,14 +748,19 @@ class Estensione
     SuperSpara()
     {    
         if(this.cariche > 0)
-        { 
+        {   
+            if(Controller && !d)
+            {
+                PsF == (6 || 7)? Controller.vibrationActuator.playEffect("trigger-rumble",{duration: 35,strongMagnitude: VC*Math.min(this.danni/5000,1),weakMagnitude: VC*Math.max(Math.min(1,100/this.danni),Math.min(this.danni/5000,1)),[PsF == 6? 'leftTrigger' : 'rightTrigger']: VG*Math.max(Math.min(1,100/this.danni),Math.min(this.danni/5000,1))}) :
+                Controller.vibrationActuator.playEffect("dual-rumble",{duration: 35,strongMagnitude: VC*Math.min(this.danni/5000,1),weakMagnitude: VC*Math.max(Math.min(1,100/this.danni),Math.min(this.danni/5000,1)),});
+            }
             ArmaInCanna.setAttribute('src',`./Immagini/Armi/${ArmaPresa.nome}_${this.nome}.jpg`);
             this.cariche--;
             this.carica = this.cariche*this.step;
-            RumoriArma.textContent = `${this.rumore}`; 
-            BarraEstensione.style.width = `${0.25 + 20*this.carica/this.maxcarico}vw`;
+            AmmoEstensione.textContent = `${Math.trunc(this.cariche)}/${this.maxcariche}`;
+            if(MostraSuoni){RumoriArma.textContent = `${this.rumore}`;}
             setTimeout(() => {Preso(this);},1000*distanza/this.velocità);
-            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${ArmaPresa.nome}.jpg`); RumoriArma.textContent = "";},20);
+            setTimeout(() => {ArmaInCanna.setAttribute('src',`./Immagini/Armi/${ArmaPresa.nome}.jpg`); RumoriArma.textContent = "";},35);
         }
     }
 }

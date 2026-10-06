@@ -26,11 +26,15 @@
         <h5 id = "Countdown"></h5>
         <h5 class = "Info" id = "Munizioni">1000|9000</h5>
         <div class = "MiniBarra" id = "PienBarraMischia"></div><div class = "MiniBarra" id = "BarraMischia"></div>
-        <div class = "MiniBarra" id = "GrigliaEstensione"></div><div class = "MiniBarra" id = "BarraEstensione"></div>
+        <h5 id = "AmmoEstensione">0/4</h5>
         <h5 class = "Info" id = "NomEstensione">Megadistruzione</h5>
         <div id = "HP">HP: 4</div>
         <div id = "PGiocabile" class = "Personaggio"><img id= "Arma" class = "Personaggio" src = "./Immagini/Armi/Distributore di palline.jpg" alt = "Arma"/></div>
         <div id = "Info2"><h4 id = "posG">Posizione Giocatore: 0</h4><h4 id = "posA">Posizione Nemico: 100</h4><h4 id = "distanza">Distanza: 100</h4><h4 id = "distanzaAG">Distanza Attacco-Giocatore: 100</h4></div>
+        <button class = "CambioArmi" id = "Shotgun"><img class = "MiniArma" src = "" alt = "Shotgun equipaggiato"/></button>
+        <button class = "CambioArmi" id = "Assalto"><img class = "MiniArma" src = "" alt = "Assalto equipaggiato"/></button>
+        <button class = "CambioArmi" id = "Cecchino"><img class = "MiniArma" src = "" alt = "Cecchino equipaggiato"/></button>
+        <button class = "CambioArmi" id = "Mischia"><img class = "MiniArma" src = "" alt  = "MischiaEquipaggiata"/></button>
         <dialog id = "Pausa">
             <div id = "SchermataPausa">
                 In Pausa
@@ -43,7 +47,7 @@
         <dialog id = "Conferma">
             <div id = "SchermataConferma">
                 Davvero?
-                <button type = "button" id = "Sì" onclick = "if(RimaniQui){window.location.reload();} else{window.location.href = 'index.html'}">Sì</button>
+                <button type = "button" id = "Sì" onclick = "if(RimaniQui){window.location.reload();} else{window.location.href = 'SchermataAvvio.html'}">Sì</button>
                 <button type = "button" id = "No" onclick = "PannelloConferma.close()">No</button>
             </div>
         </dialog>
@@ -230,6 +234,227 @@
                     <option value = "Tab">Tab</option>
                 </select>
             </div>
+            <div class = "Riga"><b>Comandi controller                        </b><button id = "SelettoreController" onclick = "if(c == 'Nintendo'){c = null; SCBottone.textContent = 'XBox'; 
+            SCBottone.style.color = 'black'; SCBottone.style.backgroundColor = 'green'; window.localStorage.removeItem('MarcaController');} else if(c == null){c = 'PlayStation'; SCBottone.textContent = 'PlayStation'; 
+            SCBottone.style.color = 'white'; SCBottone.style.backgroundColor = 'blue'; window.localStorage.setItem('MarcaController',c);} else if(c == 'PlayStation'){c = 'Nintendo'; SCBottone.textContent = 'Nintendo'; 
+            SCBottone.style.color = 'white'; SCBottone.style.backgroundColor = 'red'; window.localStorage.setItem('MarcaController',c);} DisegnaTasti();"></button>
+            <b>N.B.</b> La funzione di <b>vibrazione</b> e i <b>grilletti adattivi</b> del <b>Controller Wireless DualSense</b> (PS5) <b>NON</b> sono <b>supportati</b></div>
+            <div class = "Riga"><b>Fuoco:</b>
+            <select class = "Controller" name = "PF">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Ricarica:</b>
+            <select class = "Controller" name = "PR">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Schiva:</b>
+            <select class = "Controller" name = "PS">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Arma da mischia:</b>
+            <select class = "Controller" name = "P0">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Fucile shotgun:</b>
+            <select class = "Controller" name = "P1">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Fucile d'assalto:</b>
+            <select class = "Controller" name = "P2">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Fucile da cecchino:</b>
+            <select class = "Controller" name = "P3">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Superfuoco:</b>
+            <select class = "Controller" name = "PsF">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Cambia estensione arma:</b>
+            <select class = "Controller" name = "PA">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga"><b>Pausa:</b>
+            <select class = "Controller" name = "PP">
+                <option value = ""></option>
+                <option value = "0">A</option>
+                <option value = "1">B</option>
+                <option value = "2">X</option>
+                <option value = "3">Y</option>
+                <option value = "4">LB</option>
+                <option value = "5">RB</option>
+                <option value = "6">LT</option>
+                <option value = "7">RT</option>
+                <option value = "8">VIEW / SELECT / BACK</option>
+                <option value = "9">MENÙ / START</option>
+                <option value = "10">LS</option>
+                <option value = "11">RS</option>
+                <option value = "12">↑</option>
+                <option value = "13">↓</option>
+                <option value = "14">←</option>
+                <option value = "15">→</option>
+            </select>
+            </div>
+            <div class = "Riga">Levetta movimento:               <button id = "BottoneInversione" name = "AM" onclick = "if(!inv){inv = true; BottoneInversione.textContent = 'dx';}
+            else{inv = false; BottoneInversione.textContent = 'sx';}">sx</button></div>
+            <div class = "Riga">Zona morta:                <input id = "ZonaMorta" type = "number" min = "0.1" max = "0.9" step = "0.05" value = "0.2"/></div>
+            <div class = "Riga">Intensità vibrazione controller:                    <input id = "VibrazioneController" type = "number" min = "0" max = "100" step = "5" value = "100"/>%</div>
+            <div class = "Riga">Intensità vibrazione grilletti:                    <input id = "VibrazioneGrilletti" type = "number" min = "0" max = "100" step = "5" value = "100"/>%</div>
+            <br/>
                 <b>Mostra dati di posizione</b>
                 <button type = "button" id = "MostraLePosizioni" class = "SiONo" onclick = "if(MostraPosizioni){MostraPosizioni = false;}else{MostraPosizioni = true;} AlternaSiONo(BottonePosizioni,MostraPosizioni);"></button></div>
                 <b>Rumori delle armi</b>
@@ -247,5 +472,6 @@
         <script src = "DefinizioneUtili.js"></script>
         <script src = "AusilioOpzioni.js"></script>
         <script src = "LogicaScontri.js"></script>
+        <script src = "Controller.js"></script>
     </body>
 </html>

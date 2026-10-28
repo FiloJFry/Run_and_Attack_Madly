@@ -8,7 +8,7 @@ Run and Attack Madly è uno sparatutto in prima persona incentrato sulle battagl
 - Buon divertimento!
 # Posso giocare col controller?
 Certamente! Puoi giocare con qualsiasi controller che abbia almeno due levette. Però tieni a mente che:
-- Il controller NON è in grado di impostare,avviare o concludere una sezione di gioco,ma solo di svolgerla
+- TASTIERA E MOUSE sono comunque RICHIESTI PER GIOCARE
 - La funzione di VIBRAZIONE e i GRILLETTI ADATTIVI del CONTROLLER WIRELESS DUALSENSE (PS5) NON SONO SUPPORTATI
 # P.S. Come posso far comparire il gioco sul desktop come qualsiasi altra app?
 - Assicurati di aver estratto i file dallo zip scaricato da qui col tasto verde "Code"

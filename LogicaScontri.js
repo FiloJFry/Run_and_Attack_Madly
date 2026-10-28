@@ -35,8 +35,8 @@ let P3 = window.localStorage.getItem("P3") || 15;
 let PP = window.localStorage.getItem("PP") || 9;
 let AM;
 let pr = true;
-let G1 = true;
-let G2 = true;
+let G1 = false;
+let G2 = false;
 let ZM = window.localStorage.getItem("ZM") || 0.2;
 let VC = window.localStorage.getItem("VC") || 1.0;
 let VG = window.localStorage.getItem("VG") || 1.0;
@@ -530,51 +530,31 @@ function ComandiController()
     {
         Protagonista.Schiva(); 
     }
-    if(Controller.buttons[PF].pressed && G1 && !InPausa)
+    if(Controller.buttons[PF].pressed && !InPausa)
     {   
-        if(G2 && Controller.buttons[PsF].pressed)
-        {
-            G2 = false; 
-            ArmaPresa.Estensione.SuperArresta();
-        }
         if(!Colpo && !InCarica && risparo)
         {   
+            G1 = true;
             ArmaPresa.Fuoco();
         }
     }
-    else if(!Controller.buttons[PF].pressed)
+    else if(G1)
     {   
-        if(Colpo)
-        {   
-            if(!Controller.buttons[PsF].pressed)
-            {
-                ArmaPresa.Arresta();
-            }
-            G1 = true;
-        }
+        ArmaPresa.Arresta();
+        G1 = false;
     }
-    if(Controller.buttons[PsF].pressed && G2 && !InPausa)
+    if(Controller.buttons[PsF].pressed && !InPausa)
     {   
-        if(G1 && Controller.buttons[PF].pressed)
-        {
-            G1 = false; 
-            ArmaPresa.Arresta();
-        }
         if(!Colpo && !InCarica && risparo)
         {   
+            G2 = true;
             ArmaPresa.Estensione.SuperFuoco();
         }
     }
-    else if(!Controller.buttons[PsF].pressed)
+    else if(G2)
     {  
-        if(Colpo)
-        {   
-            if(!Controller.buttons[PF].pressed)
-            {
-                ArmaPresa.Estensione.SuperArresta();
-            }
-            G2 = true;
-        }
+        ArmaPresa.Estensione.SuperArresta();
+        G2 = false;
     }
     if(Controller.buttons[PA].pressed && !InPausa)
     {
